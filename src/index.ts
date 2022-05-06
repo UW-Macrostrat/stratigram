@@ -1,5 +1,6 @@
 import { FocusStyleManager } from "@blueprintjs/core";
 import { render } from "react-dom";
+import { App } from ".deps/ui-components/apps/section-editor/src";
 import h from "@macrostrat/hyper";
 
 import "@blueprintjs/core/lib/css/blueprint.css";
