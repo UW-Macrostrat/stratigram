@@ -1,6 +1,6 @@
 import { FocusStyleManager } from "@blueprintjs/core";
 import { render } from "react-dom";
-import { App } from ".deps/ui-components/apps/section-editor/src";
+import { App } from "./app";
 import h from "@macrostrat/hyper";
 
 import "@blueprintjs/core/lib/css/blueprint.css";
@@ -11,4 +11,4 @@ const el = document.createElement("div");
 el.className = "app";
 // Render the application
 document.body.appendChild(el);
-render(h("div", null, ["Hello, world!"]), el);
+render(h(App), el);
