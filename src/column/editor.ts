@@ -14,7 +14,7 @@ import {
   Intent,
   ButtonGroup,
   Alert,
-  Slider
+  Slider,
 } from "@blueprintjs/core";
 import { DeleteButton } from "@macrostrat/ui-components";
 import Select from "react-select";
@@ -31,17 +31,17 @@ import {
   HorizontalPicker,
   BoundaryStyleControl,
   FaciesPicker,
-  grainSizes
+  grainSizes,
 } from "@macrostrat/column-components";
 
-import { Panel } from "~/src/ui";
+import { Panel } from "~/ui";
 import h from "~/hyper";
 
 const fmt = format(".1f");
 
 const surfaceTypes = [
   { value: "mfs", label: "Maximum flooding surface" },
-  { value: "sb", label: "Sequence boundary" }
+  { value: "sb", label: "Sequence boundary" },
 ];
 
 class IntervalEditor extends Component {
@@ -49,7 +49,7 @@ class IntervalEditor extends Component {
     this.defaultProps = { onUpdate() {} };
     this.propTypes = {
       setEditingInterval: T.func.isRequired,
-      onUpdate: T.func.isRequired
+      onUpdate: T.func.isRequired,
     };
     this.contextType = ColumnContext;
   }
@@ -59,7 +59,7 @@ class IntervalEditor extends Component {
     super(props);
     this.state = {
       facies: [],
-      isAlertOpen: false
+      isAlertOpen: false,
     };
   }
   render() {
@@ -80,11 +80,11 @@ class IntervalEditor extends Component {
         className: "interval-editor",
         title: h([
           "Edit interval ",
-          h("span.height-range", `${bottom} - ${top} m`)
+          h("span.height-range", `${bottom} - ${top} m`),
         ]),
         onClose: () => {
           return this.props.setEditingInterval(null);
-        }
+        },
       },
       [
         h("div.buttons", [
@@ -95,7 +95,7 @@ class IntervalEditor extends Component {
                 const division = divisions[ix - 1];
                 return this.props.setEditingInterval({ division });
               },
-              disabled: ix === 0
+              disabled: ix === 0,
             },
             "Previous"
           ),
@@ -106,54 +106,54 @@ class IntervalEditor extends Component {
                 const division = divisions[ix + 1];
                 return this.props.setEditingInterval({ division });
               },
-              disabled: ix === divisions.length - 1
+              disabled: ix === divisions.length - 1,
             },
             "Next"
-          )
+          ),
         ]),
         h("label.bp3-label", [
           "Lithology",
           h(LithologyPicker, {
             interval,
-            onChange: lithology => this.update({ lithology })
-          })
+            onChange: (lithology) => this.update({ lithology }),
+          }),
         ]),
         h("label.bp3-label", [
           "Lithology symbol",
           h(LithologySymbolPicker, {
             interval,
-            onChange: d => this.update({ fillPattern: d })
-          })
+            onChange: (d) => this.update({ fillPattern: d }),
+          }),
         ]),
         h("label.bp3-label", [
           "Grainsize",
           h(PickerControl, {
             vertical: false,
             isNullable: true,
-            states: grainSizes.map(d => ({
+            states: grainSizes.map((d) => ({
               label: d,
-              value: d
+              value: d,
             })),
             activeState: interval.grainsize,
-            onUpdate: grainsize => {
+            onUpdate: (grainsize) => {
               return this.update({ grainsize });
-            }
-          })
+            },
+          }),
         ]),
         h("label.bp3-label", [
           "Surface expression",
           h(BoundaryStyleControl, {
             interval,
-            onUpdate: d => this.update({ definite_boundary: d })
-          })
+            onUpdate: (d) => this.update({ definite_boundary: d }),
+          }),
         ]),
         h("label.bp3-label", [
           "Facies",
           h(FaciesPicker, {
             onClick: this.updateFacies,
             interval,
-            onChange: facies => this.update({ facies })
-          })
+            onChange: (facies) => this.update({ facies }),
+          }),
         ]),
         h("label.bp3-label", [
           "Surface type (parasequence)",
@@ -162,17 +162,17 @@ class IntervalEditor extends Component {
             isNullable: true,
             states: surfaceTypes,
             activeState: interval.surface_type,
-            onUpdate: surface_type => {
+            onUpdate: (surface_type) => {
               return this.update({ surface_type });
-            }
-          })
+            },
+          }),
         ]),
         h("label.bp3-label", [
           "Surface order",
           h(SurfaceOrderSlider, {
             interval,
-            onChange: this.update
-          })
+            onChange: this.update,
+          }),
         ]),
         h("div.buttons", [
           h(
@@ -184,7 +184,7 @@ class IntervalEditor extends Component {
                   return;
                 }
                 return this.props.removeInterval(id);
-              }
+              },
             },
             "Delete this interval"
           ),
@@ -196,11 +196,11 @@ class IntervalEditor extends Component {
                   return;
                 }
                 return this.props.addInterval(height);
-              }
+              },
             },
             `Add interval starting at ${fmt(height)} m`
-          )
-        ])
+          ),
+        ]),
       ]
     );
   }

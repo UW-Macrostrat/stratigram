@@ -104,6 +104,7 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
     alias: {
+      react: require.resolve("react"),
       "~": path.resolve(__dirname, "src"),
       "@macrostrat/column-components": packageSrc("column-components"),
       "@macrostrat/ui-components": packageSrc("ui-components"),

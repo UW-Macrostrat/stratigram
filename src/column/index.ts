@@ -22,7 +22,7 @@ import {
 } from "@macrostrat/column-components";
 import h from "~/hyper";
 import T from "prop-types";
-import defaultFacies from "./default-facies";
+import defaultFacies from "./default-facies.json";
 import { NoteEditor } from "./note-editor";
 import { animateScroll as scroll } from "react-scroll";
 const patterns = {};

@@ -1,3 +1,4 @@
+import "regenerator-runtime";
 import { FocusStyleManager } from "@blueprintjs/core";
 import { render } from "react-dom";
 import { App } from "./app";
