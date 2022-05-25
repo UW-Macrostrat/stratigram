@@ -1,34 +1,15 @@
-/*
- * decaffeinate suggestions:
- * DS002: Fix invalid constructor
- * DS102: Remove unnecessary code created because of implicit returns
- * DS206: Consider reworking classes to avoid initClass
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
-import { findDOMNode } from "react-dom";
-import { Component, createElement } from "react";
-import {
-  Dialog,
-  Button,
-  Intent,
-  ButtonGroup,
-  Alert,
-  Slider,
-} from "@blueprintjs/core";
+import { Component } from "react";
+import { Button } from "@blueprintjs/core";
 import { DeleteButton } from "@macrostrat/ui-components";
-import Select from "react-select";
 import { format } from "d3-format";
 import T from "prop-types";
 
-import { FaciesContext, ColumnContext } from "@macrostrat/column-components";
-
-import { PickerControl } from "@macrostrat/column-components";
 import {
+  ColumnContext,
+  PickerControl,
   LithologyPicker,
   LithologySymbolPicker,
   SurfaceOrderSlider,
-  HorizontalPicker,
   BoundaryStyleControl,
   FaciesPicker,
   grainSizes,
@@ -54,9 +35,9 @@ class IntervalEditor extends Component {
     this.contextType = ColumnContext;
   }
   constructor(props) {
+    super(props);
     this.updateFacies = this.updateFacies.bind(this);
     this.update = this.update.bind(this);
-    super(props);
     this.state = {
       facies: [],
       isAlertOpen: false,
