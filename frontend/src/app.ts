@@ -10,8 +10,7 @@ import { StatefulComponent } from "@macrostrat/ui-components";
 
 import { StratColumn } from "./column";
 import { SettingsPanel } from "./settings";
-import { TitleBar, SideMenu } from "./nav";
-import T from "prop-types";
+import { SideMenu } from "./nav";
 import { Page } from "./enum";
 import { Panel } from "./ui";
 
