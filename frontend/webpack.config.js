@@ -9,7 +9,15 @@ const mode = process.env.NODE_ENV || "development";
 let publicURL = process.env.PUBLIC_URL || "/";
 
 const packageSrc = (name) =>
-  path.resolve(__dirname, "deps", "ui-components", "packages", name, "src");
+  path.resolve(
+    __dirname,
+    "..",
+    "deps",
+    "ui-components",
+    "packages",
+    name,
+    "src"
+  );
 
 const gitEnv = revisionInfo(pkg, "https://github.com/UW-Macrostrat/stratiform");
 

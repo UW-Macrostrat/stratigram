@@ -1,14 +1,12 @@
 {
-  "name": "@macrostrat/stratiform",
+  "name": "@macrostrat/stratiform-ui",
   "version": "1.0.0",
   "description": "Capture stratigraphic columns. Part of Macrostrat v2.",
   "main": "index.js",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev:webpack": "webpack serve",
-    "dev:storybook": "yarn --cwd ./deps/ui-components run storybook",
-    "dev": "concurrently \"yarn run dev:webpack\" \"yarn run dev:storybook\""
+    "dev": "webpack serve"
   },
   "author": "Daven Quinn",
   "license": "MIT",

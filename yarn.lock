@@ -3694,7 +3694,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@macrostrat/hyper@npm:^2.0.1, @macrostrat/hyper@npm:^2.1.0, @macrostrat/hyper@npm:^2.1.1":
+"@macrostrat/hyper@npm:^2.0.1, @macrostrat/hyper@npm:^2.1.0, @macrostrat/hyper@npm:^2.1.1, @macrostrat/hyper@npm:^2.1.4":
   version: 2.1.4
   resolution: "@macrostrat/hyper@npm:2.1.4"
   dependencies:
@@ -3815,6 +3815,35 @@ __metadata:
   checksum: 15e0d9d68f0655ba339901133544efa1ee55c2462d90179792ec0d34a6482f3fbd1b0d0703862f9c0887a5bf655ae1c45e53960d2b87dfcb96f5159d4964b7fc
   languageName: node
   linkType: hard
+
+"@macrostrat/stratiform-ui@workspace:frontend":
+  version: 0.0.0-use.local
+  resolution: "@macrostrat/stratiform-ui@workspace:frontend"
+  dependencies:
+    "@babel/core": ^7.17.10
+    "@babel/preset-env": ^7.17.10
+    "@babel/preset-react": ^7.16.7
+    "@babel/preset-typescript": ^7.16.7
+    "@blueprintjs/core": ^4.3.0
+    "@macrostrat/hyper": ^2.1.4
+    "@macrostrat/revision-info-webpack": ^1.0.0
+    babel-loader: ^8.2.5
+    concurrently: ^7.1.0
+    css-loader: ^6.7.1
+    file-loader: ^6.2.0
+    html-webpack-plugin: ^5.5.0
+    json-loader: ^0.5.7
+    react: ^16.8.6
+    react-dom: ^16.8.6
+    regenerator-runtime: ^0.13.9
+    style-loader: ^3.3.1
+    stylus-loader: ^6.2.0
+    typescript: ^4.6.4
+    webpack: ^5.72.0
+    webpack-cli: ^4.9.2
+    webpack-dev-server: ^4.9.0
+  languageName: unknown
+  linkType: soft
 
 "@macrostrat/stratiform@workspace:.":
   version: 0.0.0-use.local
@@ -15629,7 +15658,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.0.3, fast-glob@npm:^3.2.4, fast-glob@npm:^3.2.9":
+"fast-glob@npm:^3.0.3, fast-glob@npm:^3.2.4, fast-glob@npm:^3.2.7, fast-glob@npm:^3.2.9":
   version: 3.2.11
   resolution: "fast-glob@npm:3.2.11"
   dependencies:
@@ -31489,6 +31518,20 @@ __metadata:
     stylus: ">=0.52.4"
     webpack: ^4.0.0 || ^5.0.0
   checksum: 07aec3cdb2cd648b2d2ebc73fd44e9601aeedbcf592c3db4c4d081e8fd768ec8431b1dcd0654aac3e1071968a9c7c71486a90b1c9b2cf528beeccbc6f37b6057
+  languageName: node
+  linkType: hard
+
+"stylus-loader@npm:^6.2.0":
+  version: 6.2.0
+  resolution: "stylus-loader@npm:6.2.0"
+  dependencies:
+    fast-glob: ^3.2.7
+    klona: ^2.0.4
+    normalize-path: ^3.0.0
+  peerDependencies:
+    stylus: ">=0.52.4"
+    webpack: ^5.0.0
+  checksum: 0a7bf31f1d8b0c0a0733509523ec542216e17088d01405d0e5e2dca6c5bacca3863cf5d40f4a2ffd8722c471e2e15db553dd8c65512602242533617b4a0fd70a
   languageName: node
   linkType: hard
 

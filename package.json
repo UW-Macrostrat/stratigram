@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev:webpack": "webpack serve",
+    "dev:webpack": "yarn --cwd ./frontend run dev",
     "dev:storybook": "yarn --cwd ./deps/ui-components run storybook",
     "dev": "concurrently \"yarn run dev:webpack\" \"yarn run dev:storybook\""
   },
@@ -22,7 +22,8 @@
   "prettier": {},
   "workspaces": [
     "./deps/ui-components",
-    "./deps/ui-components/packages/*"
+    "./deps/ui-components/packages/*",
+    "./frontend"
   ],
   "devDependencies": {
     "@babel/core": "^7.17.10",
