@@ -1,0 +1,15 @@
+services:
+  database:
+    image: postgis/postgis:14-3.2
+    environment:
+      - POSTGRES_USER=postgres
+      # No authentication for now...
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_DB=stratiform
+    ports:
+      - "54321:5432"
+  api:
+    image: postgrest/postgrest:v9.0.0
+    environment:
+      - PGRST_DB_URI=postgres://postgres@database:5432/stratiform
+      - PGRST_DB_SCHEMAS=stratiform

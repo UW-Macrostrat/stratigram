@@ -1,6 +1,10 @@
 node_modules
 dist
 
+# Data store (running locally)
+store/.venv
+.env
+
 # For yarn v2 with Plug'n'Play
 .pnp.*
 .yarn/*
