@@ -50,6 +50,7 @@ const plugins = [
 const styleLoaders = ["style-loader", cssModuleLoader];
 
 module.exports = {
+  cache: false,
   mode,
   devServer: {
     compress: true,

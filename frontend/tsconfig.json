@@ -19,13 +19,13 @@
     "paths": {
       "~/*": ["./src/*"],
       "@macrostrat/ui-components": [
-        "deps/ui-components/packages/ui-components/src/"
+        "../deps/ui-components/packages/ui-components/src/"
       ],
       "@macrostrat/column-components": [
-        "deps/ui-components/packages/column-components/src/"
+        "../deps/ui-components/packages/column-components/src/"
       ],
       "@macrostrat/map-components": [
-        "deps/ui-components/packages/map-components/src/"
+        "../deps/ui-components/packages/map-components/src/"
       ]
     }
   },

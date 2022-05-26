@@ -3833,12 +3833,11 @@ __metadata:
     file-loader: ^6.2.0
     html-webpack-plugin: ^5.5.0
     json-loader: ^0.5.7
-    react: ^16.8.6
-    react-dom: ^16.8.6
+    react: ^17.0.0
+    react-dom: ^17.0.0
     regenerator-runtime: ^0.13.9
     style-loader: ^3.3.1
     stylus-loader: ^6.2.0
-    typescript: ^4.6.4
     webpack: ^5.72.0
     webpack-cli: ^4.9.2
     webpack-dev-server: ^4.9.0
@@ -3862,8 +3861,6 @@ __metadata:
     file-loader: ^6.2.0
     html-webpack-plugin: ^5.5.0
     json-loader: ^0.5.7
-    react: ^17
-    react-dom: ^17
     regenerator-runtime: ^0.13.9
     style-loader: ^3.3.1
     typescript: ^4.6.4
@@ -3992,8 +3989,6 @@ __metadata:
     postcss: ^8.3.11
     prettier: ^1.19.1
     prop-types: ^15.7.2
-    react: ^16.12.0
-    react-dom: ^16.12.0
     react-draggable: ^4.2.0
     react-images: ^1.1.0-beta.0
     react-json-view: ^1.19.1
@@ -4301,10 +4296,50 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mapbox/node-pre-gyp@npm:^1.x":
+  version: 1.0.9
+  resolution: "@mapbox/node-pre-gyp@npm:1.0.9"
+  dependencies:
+    detect-libc: ^2.0.0
+    https-proxy-agent: ^5.0.0
+    make-dir: ^3.1.0
+    node-fetch: ^2.6.7
+    nopt: ^5.0.0
+    npmlog: ^5.0.1
+    rimraf: ^3.0.2
+    semver: ^7.3.5
+    tar: ^6.1.11
+  bin:
+    node-pre-gyp: bin/node-pre-gyp
+  checksum: 1b9c4c87a68d200daa13151d0fe033aa7aa8f7b26f3585255424dd8dfee2ec672c3e9bea4071c624469bc0aebbbcde08f8a300c8a958db52c50abadd5fb56920
+  languageName: node
+  linkType: hard
+
 "@mapbox/point-geometry@npm:0.1.0, @mapbox/point-geometry@npm:^0.1.0, @mapbox/point-geometry@npm:~0.1.0":
   version: 0.1.0
   resolution: "@mapbox/point-geometry@npm:0.1.0"
   checksum: ed41c1ce0140de81039424415d9a199abba72cdb2287314e1b8c3e295da3224f7e8c1b0ae99a9b097703e7abe63e1978a518e29896989cc8bba3d482360bc22f
+  languageName: node
+  linkType: hard
+
+"@mapbox/shelf-pack@npm:~3.0.0":
+  version: 3.0.0
+  resolution: "@mapbox/shelf-pack@npm:3.0.0"
+  checksum: 96b81eada9bf48843215cb5f402a7f0b7719b098eec34d704ab7fdb5d115d362331033059172494bf9cc1101593d82138e4f37f52d7badc1d823d0a67cea3f69
+  languageName: node
+  linkType: hard
+
+"@mapbox/spritezero@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "@mapbox/spritezero@npm:8.0.0"
+  dependencies:
+    "@mapbox/shelf-pack": ~3.0.0
+    json-stable-stringify: ^1.0.1
+    mapnik: ^4.4.0
+    queue-async: ^1.2.1
+    svg-boundings: ^2.0.3
+    svgo: ^1.3.0
+  checksum: 45b35b487bab6466eba10be5c21a85a37fd626753e9e944ea888594a344729b14531aff3181758204a1609fca383051760f1f6c5986328eb99ec0724866fece9
   languageName: node
   linkType: hard
 
@@ -14211,6 +14246,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"detect-libc@npm:^2.0.0":
+  version: 2.0.1
+  resolution: "detect-libc@npm:2.0.1"
+  checksum: ccb05fcabbb555beb544d48080179c18523a343face9ee4e1a86605a8715b4169f94d663c21a03c310ac824592f2ba9a5270218819bb411ad7be578a527593d7
+  languageName: node
+  linkType: hard
+
 "detect-newline@npm:^2.1.0":
   version: 2.1.0
   resolution: "detect-newline@npm:2.1.0"
@@ -16701,6 +16743,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"geologic-patterns@workspace:deps/geologic-patterns":
+  version: 0.0.0-use.local
+  resolution: "geologic-patterns@workspace:deps/geologic-patterns"
+  dependencies:
+    "@mapbox/spritezero": ^8.0.0
+    glob: ^8.0.3
+    ts-node: ^10.8.0
+  languageName: unknown
+  linkType: soft
+
 "get-caller-file@npm:^1.0.1":
   version: 1.0.3
   resolution: "get-caller-file@npm:1.0.3"
@@ -17077,7 +17129,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^8.0.1":
+"glob@npm:^8.0.1, glob@npm:^8.0.3":
   version: 8.0.3
   resolution: "glob@npm:8.0.3"
   dependencies:
@@ -21056,6 +21108,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"json-stable-stringify@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "json-stable-stringify@npm:1.0.1"
+  dependencies:
+    jsonify: ~0.0.0
+  checksum: 65d6cbf0fca72a4136999f65f4401cf39a129f7aeff0fdd987ac3d3423a2113659294045fb8377e6e20d865cac32b1b8d70f3d87346c9786adcee60661d96ca5
+  languageName: node
+  linkType: hard
+
 "json-stringify-safe@npm:^5.0.1, json-stringify-safe@npm:~5.0.1":
   version: 5.0.1
   resolution: "json-stringify-safe@npm:5.0.1"
@@ -21121,6 +21182,13 @@ __metadata:
     graceful-fs:
       optional: true
   checksum: 7af3b8e1ac8fe7f1eccc6263c6ca14e1966fcbc74b618d3c78a0a2075579487547b94f72b7a1114e844a1e15bb00d440e5d1720bfc4612d790a6f285d5ea8354
+  languageName: node
+  linkType: hard
+
+"jsonify@npm:~0.0.0":
+  version: 0.0.0
+  resolution: "jsonify@npm:0.0.0"
+  checksum: d8d4ed476c116e6987a460dcb82f22284686caae9f498ac87b0502c1765ac1522f4f450a4cad4cc368d202fd3b27a3860735140a82867fc6d558f5f199c38bce
   languageName: node
   linkType: hard
 
@@ -22509,6 +22577,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mapnik-vector-tile@npm:3.0.1":
+  version: 3.0.1
+  resolution: "mapnik-vector-tile@npm:3.0.1"
+  checksum: 696f64f3773b05135579019d8342ab3d5daadf452673d960370d25ff17a5d28b64a28c4529360ce9f2fd8d949283ba1406ff4b268700b41dcc544804d7c54e51
+  languageName: node
+  linkType: hard
+
+"mapnik@npm:^4.4.0":
+  version: 4.5.9
+  resolution: "mapnik@npm:4.5.9"
+  dependencies:
+    "@mapbox/node-pre-gyp": ^1.x
+    mapnik-vector-tile: 3.0.1
+    node-addon-api: ~3.1.x
+  bin:
+    mapnik-index.js: bin/mapnik-index.js
+    mapnik-inspect.js: bin/mapnik-inspect.js
+    mapnik-render.js: bin/mapnik-render.js
+    mapnik-shapeindex.js: bin/mapnik-shapeindex.js
+  checksum: f0131ac8a0bd3348a329eb24c73a6dbe23ad061abf37d2263cbbb11c76c665b880a18c1f7f6f5b80ed74baf5ab4cf27e9358398ca8651e8b724c908b63765ea3
+  languageName: node
+  linkType: hard
+
 "markdown-escapes@npm:^1.0.0":
   version: 1.0.4
   resolution: "markdown-escapes@npm:1.0.4"
@@ -23587,6 +23678,15 @@ __metadata:
   dependencies:
     node-gyp: latest
   checksum: 2369986bb0881ccd9ef6bacdf39550e07e089a9c8ede1cbc5fc7712d8e2faa4d50da0e487e333d4125f8c7a616c730131d1091676c9d499af1d74560756b4a18
+  languageName: node
+  linkType: hard
+
+"node-addon-api@npm:~3.1.x":
+  version: 3.1.0
+  resolution: "node-addon-api@npm:3.1.0"
+  dependencies:
+    node-gyp: latest
+  checksum: 76a32f1e809aacc7d4a05e764bac2a41ba72d07ea859d329f0f0f2b9d5b4e04cbc4889312eae5150e8dad3ea2fe57ebebe63453cb12ac991c0c639a39c0d49c3
   languageName: node
   linkType: hard
 
@@ -27408,6 +27508,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"queue-async@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "queue-async@npm:1.2.1"
+  checksum: d451b2c7eaf1dc669b9aa896ab58f5542aaa1da8fee82bb14cf9ee6b7ec83e55c7cae7a14d59d26ac4c0c3da1217e0178341d459e38856dc217e6fff1be93706
+  languageName: node
+  linkType: hard
+
 "queue-microtask@npm:^1.2.2":
   version: 1.2.3
   resolution: "queue-microtask@npm:1.2.3"
@@ -27714,7 +27821,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^16.12.0, react-dom@npm:^16.13.1, react-dom@npm:^16.8.6":
+"react-dom@npm:^16.13.1, react-dom@npm:^16.8.6":
   version: 16.14.0
   resolution: "react-dom@npm:16.14.0"
   dependencies:
@@ -27728,7 +27835,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^16.8.6 || ^17, react-dom@npm:^17, react-dom@npm:^17.0.2":
+"react-dom@npm:^16.8.6 || ^17, react-dom@npm:^17.0.0, react-dom@npm:^17.0.2":
   version: 17.0.2
   resolution: "react-dom@npm:17.0.2"
   dependencies:
@@ -28401,7 +28508,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^16.12.0, react@npm:^16.13.1, react@npm:^16.8.6":
+"react@npm:^16.13.1, react@npm:^16.8.6":
   version: 16.14.0
   resolution: "react@npm:16.14.0"
   dependencies:
@@ -28412,7 +28519,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^16.8.6 || ^17, react@npm:^17, react@npm:^17.0.2":
+"react@npm:^16.8.6 || ^17, react@npm:^17.0.0, react@npm:^17.0.2":
   version: 17.0.2
   resolution: "react@npm:17.0.2"
   dependencies:
@@ -31668,7 +31775,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"svgo@npm:^1.0.0, svgo@npm:^1.3.2":
+"svg-boundings@npm:^2.0.3":
+  version: 2.0.7
+  resolution: "svg-boundings@npm:2.0.7"
+  checksum: dcb429c04af473a22e698d7d96774dab0fa163e44c3859d9dc34142f1b337d6fdff26d9a45ba4588a05692c3c2b187b1eb0fb4810bfcc5872964653f7fef800c
+  languageName: node
+  linkType: hard
+
+"svgo@npm:^1.0.0, svgo@npm:^1.3.0, svgo@npm:^1.3.2":
   version: 1.3.2
   resolution: "svgo@npm:1.3.2"
   dependencies:
@@ -32458,7 +32572,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-node@npm:^10.0.0, ts-node@npm:^10.7.0":
+"ts-node@npm:^10.0.0, ts-node@npm:^10.7.0, ts-node@npm:^10.8.0":
   version: 10.8.0
   resolution: "ts-node@npm:10.8.0"
   dependencies:

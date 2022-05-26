@@ -1,0 +1,57 @@
+services:
+  database:
+    image: postgis/postgis:14-3.2
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD
+      # No authentication for now...
+      - POSTGRES_DB=stratiform
+    user: postgres
+    ports:
+      - "54321:5432"
+    volumes:
+      - ./db_cluster:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  gateway:
+    image: nginx:mainline
+    ports:
+      - "8000:80"
+    volumes:
+      - ./gateway:/etc/nginx/conf.d:ro
+  api:
+    image: postgrest/postgrest:v9.0.0
+    environment:
+      - PGRST_DB_URI=postgresql://postgres:${POSTGRES_PASSWORD}@database:5432/stratiform
+      - PGRST_DB_SCHEMAS=stratiform
+      - PGRST_DB_ANON_ROLE=postgres
+    depends_on:
+      database:
+        condition: service_healthy
+  storage_api:
+    image: supabase/storage-api:v0.16.5
+    expose:
+      - 5000
+    environment:
+      - ANON_KEY
+      - SERVICE_KEY
+      - TENANT_ID
+      - REGION=unknown
+      - GLOBAL_S3_BUCKET=stratiform-storage
+      - PGRST_JWT_SECRET
+      - POSTGREST_URL=http://api:3000
+      # - PGRST_JWT_SECRET=$STRATIFORM_SECRET
+      # - GLOBAL_S3_ENDPOINT=https://s3.amazonaws.com
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@database:5432/stratiform
+      # - PGOPTIONS="-c search_path=storage,stratiform,public"
+      - FILE_SIZE_LIMIT=50000000
+      - STORAGE_BACKEND=file
+      - FILE_STORAGE_BACKEND_PATH=/data
+    volumes:
+      - ./data:/data
+    depends_on:
+      database:
+        condition: service_healthy
