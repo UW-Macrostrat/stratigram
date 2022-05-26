@@ -1,29 +1,26 @@
 {
-  "name": "@macrostrat/stratiform",
+  "name": "@macrostrat/stratiform-ui",
   "version": "1.0.0",
   "description": "Capture stratigraphic columns. Part of Macrostrat v2.",
   "main": "index.js",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev:webpack": "yarn --cwd ./frontend run dev",
-    "dev:storybook": "yarn --cwd ./deps/ui-components run storybook",
-    "dev": "concurrently \"yarn run dev:webpack\" \"yarn run dev:storybook\""
+    "dev": "webpack serve"
   },
   "author": "Daven Quinn",
   "license": "MIT",
   "dependencies": {
     "@blueprintjs/core": "^4.3.0",
-    "@macrostrat/hyper": "^2.1.1",
-    "react": "^17",
-    "react-dom": "^17",
-    "regenerator-runtime": "^0.13.9"
+    "@macrostrat/hyper": "^2.1.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "regenerator-runtime": "^0.13.9",
+    "stylus-loader": "^6.2.0"
   },
   "prettier": {},
   "workspaces": [
-    "./deps/ui-components",
-    "./deps/ui-components/packages/*",
-    "./frontend"
+    "./deps/ui-components/packages/*"
   ],
   "devDependencies": {
     "@babel/core": "^7.17.10",
