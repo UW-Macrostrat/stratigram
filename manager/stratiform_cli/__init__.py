@@ -38,6 +38,8 @@ def follow_logs(container=""):
 def up():
     compose("up", "-d")
 
+    compose("exec gateway nginx -s reload")
+
     follow_logs()
 
 

@@ -2,10 +2,11 @@ services:
   database:
     image: postgis/postgis:14-3.2
     environment:
-      - PGUSER=postgres
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD
       # No authentication for now...
       - POSTGRES_DB=stratiform
+    user: postgres
     ports:
       - "54321:5432"
     volumes:
@@ -15,21 +16,23 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+  gateway:
+    image: nginx:mainline
+    ports:
+      - "8000:80"
+    volumes:
+      - ./gateway:/etc/nginx/conf.d:ro
   api:
     image: postgrest/postgrest:v9.0.0
     environment:
       - PGRST_DB_URI=postgresql://postgres:${POSTGRES_PASSWORD}@database:5432/stratiform
       - PGRST_DB_SCHEMAS=stratiform
       - PGRST_DB_ANON_ROLE=postgres
-    ports:
-      - "3500:3000"
     depends_on:
       database:
         condition: service_healthy
   storage_api:
     image: supabase/storage-api:v0.16.5
-    ports:
-      - "3501:5000"
     expose:
       - 5000
     environment:
