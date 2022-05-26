@@ -1,40 +1,53 @@
 from datetime import datetime
 from os import environ
+from sys import stdout
 
 from dotenv import load_dotenv
 from macrostrat.database import Database
+from macrostrat.database.utils import wait_for_database
 from macrostrat.utils import cmd, relative_path, working_directory
 from typer import Typer
+from subprocess import Popen
+
+# Config loading
 
 here = relative_path(__file__)
 root = (here / "../..").resolve()
 load_dotenv(root / ".env")
 
+db_url = environ.get("STRATIFORM_DATABASE")
+
+# App
 app = Typer()
 
 
 def compose(*args, **kwargs):
-    environ["COMPOSE_PROJECT_NAME"] = "stratiform"
-    dn = root / "platform"
-    with working_directory(dn):
+    with working_directory(root):
         cmd("docker compose", *args, **kwargs)
+
+
+def follow_logs(container=""):
+    timestamp = datetime.now().isoformat()
+    _log_cmd = ["docker", "compose", "logs", "-f", "--since", timestamp, container]
+
+    with working_directory(root):
+        cmd(*_log_cmd)
 
 
 @app.command()
 def up():
     compose("up", "-d")
-    timestamp = datetime.now().isoformat()
-    compose("logs", "-f", "--since", timestamp)
+
+    follow_logs()
 
 
 @app.command()
 def sync():
     schema_dir = root / "schema"
-    db = Database(environ.get("STRATIFORM_DATABASE"))
+    db = Database(db_url)
 
-    print(schema_dir)
     files = list(schema_dir.glob("*.sql"))
-    print(files)
+    files.sort()
     for fn in files:
         db.exec_sql(fn)
 

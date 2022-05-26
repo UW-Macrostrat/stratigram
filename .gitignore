@@ -2,8 +2,10 @@ node_modules
 dist
 
 # Data store (running locally)
-store/.venv
+manager/.venv
 .env
+platform/data
+platform/db_cluster
 
 # For yarn v2 with Plug'n'Play
 .pnp.*
