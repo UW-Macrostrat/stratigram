@@ -15,7 +15,7 @@ import {
   grainSizes,
 } from "@macrostrat/column-components";
 
-import { Panel } from "~/ui";
+import { Panel } from "~/legacy-ui/ui";
 import h from "~/hyper";
 
 const fmt = format(".1f");
