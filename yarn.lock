@@ -3830,6 +3830,7 @@ __metadata:
     "@mantine/core": ^4.2.6
     "@mantine/dropzone": ^4.2.6
     "@mantine/hooks": ^4.2.6
+    "@supabase/storage-js": ^1.7.0
     babel-loader: ^8.2.5
     concurrently: ^7.1.0
     css-loader: ^6.7.1
@@ -7425,6 +7426,15 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
   checksum: 38bcb5eda10938a1cab403ff2e5575ae3a9567b23ecad8bd90a7fc5b23acf537bb56195053df8f94727811c775ee7156b0541f40892f0d65cf9b4f58c063943a
+  languageName: node
+  linkType: hard
+
+"@supabase/storage-js@npm:^1.7.0":
+  version: 1.7.0
+  resolution: "@supabase/storage-js@npm:1.7.0"
+  dependencies:
+    cross-fetch: ^3.1.0
+  checksum: bd02b43c288381b4fdc5dc9233122d5a687fb0d3c60927e79b4517856d6497c7f205464c333bc5ece2a2910a021430f442d165d7893b012232445fd0f2afbfe1
   languageName: node
   linkType: hard
 
@@ -12802,7 +12812,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-fetch@npm:^3.1.5":
+"cross-fetch@npm:^3.1.0, cross-fetch@npm:^3.1.5":
   version: 3.1.5
   resolution: "cross-fetch@npm:3.1.5"
   dependencies:
