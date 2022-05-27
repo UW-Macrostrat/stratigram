@@ -36,6 +36,8 @@ services:
     image: supabase/storage-api:v0.16.5
     expose:
       - 5000
+    ports:
+      - "5005:5000"
     environment:
       - ANON_KEY
       - SERVICE_KEY
