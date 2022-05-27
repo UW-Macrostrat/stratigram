@@ -13,7 +13,11 @@ const storageClient = new SupabaseStorageClient(STORAGE_URL, {
 
 function onDrop(files: File[]) {
   const file = files[0];
+  const client = storageClient.from("section_images");
   console.log(file);
+  client.upload(file.name, file).then((res) => {
+    console.log(res);
+  });
 }
 
 function ImageUploader() {

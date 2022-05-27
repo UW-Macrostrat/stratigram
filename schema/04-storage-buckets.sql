@@ -2,4 +2,4 @@
 INSERT INTO
   storage.buckets (id, name)
 VALUES
-  ('section_images', 'section_images');
+  ('section_images', 'section_images') ON CONFLICT DO NOTHING;
