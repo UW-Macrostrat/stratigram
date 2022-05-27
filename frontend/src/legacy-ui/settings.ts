@@ -7,7 +7,7 @@
 import h from "~/hyper";
 import { Switch, Button } from "@blueprintjs/core";
 import { Component } from "react";
-import { Panel } from "~/ui";
+import { Panel } from "~/legacy-ui/ui";
 
 const Control = ({ title, children }) =>
   h("label.bp3-label", [title, h(Switch)]);

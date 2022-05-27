@@ -26,8 +26,9 @@ services:
     image: postgrest/postgrest:v9.0.0
     environment:
       - PGRST_DB_URI=postgresql://postgres:${POSTGRES_PASSWORD}@database:5432/stratiform
-      - PGRST_DB_SCHEMAS=stratiform
+      - PGRST_DB_SCHEMAS=stratiform_api
       - PGRST_DB_ANON_ROLE=postgres
+      - PGRST_JWT_SECRET
     depends_on:
       database:
         condition: service_healthy
@@ -35,12 +36,17 @@ services:
     image: supabase/storage-api:v0.16.5
     expose:
       - 5000
+    ports:
+      - "5005:5000"
     environment:
       - ANON_KEY
       - SERVICE_KEY
-      - TENANT_ID
-      - REGION=unknown
-      - GLOBAL_S3_BUCKET=stratiform-storage
+      - TENANT_ID=stratiform
+      - AWS_ACCESS_KEY_ID=$STORAGE_KEY
+      - AWS_SECRET_ACCESS_KEY=$STORAGE_SECRET
+      - REGION=shim
+      - GLOBAL_S3_ENDPOINT=http://storage:9000
+      - GLOBAL_S3_BUCKET=$STORAGE_BUCKET
       - PGRST_JWT_SECRET
       - POSTGREST_URL=http://api:3000
       # - PGRST_JWT_SECRET=$STRATIFORM_SECRET
@@ -48,10 +54,25 @@ services:
       - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@database:5432/stratiform
       # - PGOPTIONS="-c search_path=storage,stratiform,public"
       - FILE_SIZE_LIMIT=50000000
-      - STORAGE_BACKEND=file
-      - FILE_STORAGE_BACKEND_PATH=/data
-    volumes:
-      - ./data:/data
+      - STORAGE_BACKEND=s3
     depends_on:
       database:
         condition: service_healthy
+  storage:
+    # https://github.com/minio/minio/blob/master/docs/docker/README.md
+    image: minio/minio:latest
+    command: server /data --address 0.0.0.0:9000 --console-address :9001 --config-dir /etc/minio
+    volumes:
+      - ./data:/data
+    ports:
+      - 9001:9001
+    expose:
+      - 9000
+    networks:
+      default:
+        aliases:
+          - ${STORAGE_BUCKET}.storage
+    environment:
+      - MINIO_ROOT_USER=$STORAGE_KEY
+      - MINIO_ROOT_PASSWORD=$STORAGE_SECRET
+      - MINIO_DOMAIN=storage

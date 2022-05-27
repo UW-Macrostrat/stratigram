@@ -3,6 +3,8 @@ const { EnvironmentPlugin } = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const revisionInfo = require("@macrostrat/revision-info-webpack");
 const pkg = require("./package.json");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const mode = process.env.NODE_ENV || "development";
 
@@ -44,6 +46,8 @@ const plugins = [
   }),
   new EnvironmentPlugin({
     ...gitEnv,
+    STORAGE_URL: process.env.STORAGE_URL,
+    STORAGE_TOKEN: process.env.STORAGE_TOKEN,
   }),
 ];
 
