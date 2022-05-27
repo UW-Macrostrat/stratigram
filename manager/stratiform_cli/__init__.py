@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from os import environ
 from sys import stdout
 
@@ -27,7 +27,7 @@ def compose(*args, **kwargs):
 
 
 def follow_logs(container=""):
-    timestamp = datetime.now().isoformat()
+    timestamp = (datetime.now() - timedelta(seconds=1)).isoformat()
     _log_cmd = ["docker", "compose", "logs", "-f", "--since", timestamp, container]
 
     with working_directory(root):
