@@ -3,7 +3,7 @@ import { Dropzone, DropzoneStatus, MIME_TYPES } from "@mantine/dropzone";
 import { useAsyncEffect, DeleteButton } from "@macrostrat/ui-components";
 import h from "@macrostrat/hyper";
 import { StorageClient, FileObject } from "@supabase/storage-js";
-import { useState } from "react";
+import { useState, createContext, useContext, useCallback } from "react";
 
 const storageURL = process.env.STORAGE_URL;
 const storageToken = process.env.STORAGE_TOKEN;
@@ -27,14 +27,22 @@ function onDrop(files: File[]) {
     });
 }
 
-const acceptedMimeTypes = [
-  MIME_TYPES.png,
-  MIME_TYPES.jpeg,
-  MIME_TYPES.svg,
-  MIME_TYPES.gif,
-];
-
 function ImageUploader() {
+  const { client, refresh, acceptedMimeTypes } = useContext(FileManagerContext);
+  const onDrop = useCallback(
+    (files) => {
+      const file = files[0];
+      client
+        .upload(file.name, file, {
+          upsert: true,
+        })
+        .then((res) => {
+          refresh();
+        });
+    },
+    [client]
+  );
+
   return h(
     Dropzone,
     {
@@ -50,10 +58,13 @@ function ImageUploader() {
 
 type ImageData = FileObject & { publicURL: string };
 
-function useFileList(bucketName: string) {
+function useFileList(client) {
   const [files, setFiles] = useState<ImageData[]>([]);
+  const [updateCount, setUpdateCount] = useState(0);
+
+  const refresh = () => setUpdateCount(updateCount + 1);
+
   useAsyncEffect(async () => {
-    let client = storageClient.from(bucketName);
     let res = await client.list();
     if (res.data == null) {
       return;
@@ -67,11 +78,12 @@ function useFileList(bucketName: string) {
     }
 
     setFiles(fileData);
-  }, []);
-  return files;
+  }, [updateCount]);
+  return [files, refresh];
 }
 
 function Image({ image }) {
+  const { acceptedMimeTypes } = useContext(FileManagerContext);
   if (!acceptedMimeTypes.includes(image.metadata?.mimetype)) {
     return h("p", null, "Not an image");
   }
@@ -79,12 +91,15 @@ function Image({ image }) {
 }
 
 function ImageFileManager({ image }) {
+  const { client, refresh } = useContext(FileManagerContext);
   return h("div", [
     h(Image, { image }),
     h(DeleteButton, {
       itemDescription: "this photo",
       handleDelete: () => {
-        client.remove([image.name]);
+        client.remove([image.name]).then((res) => {
+          refresh();
+        });
       },
     }),
   ]);
@@ -106,17 +121,34 @@ function ImageList({ images }: { images: ImageData[] }) {
   );
 }
 
-function ImageManager() {
-  const images = useFileList("section_images");
+const FileManagerContext = createContext(null);
+
+function ImageManager({
+  bucketName = "section_images",
+  acceptedMimeTypes = [
+    MIME_TYPES.png,
+    MIME_TYPES.jpeg,
+    MIME_TYPES.svg,
+    MIME_TYPES.gif,
+  ],
+}) {
+  let client = storageClient.from(bucketName);
+  const [images, refresh] = useFileList(client);
   return h(
-    Group,
-    {
-      spacing: "small",
-      direction: "column",
-      justify: "center",
-      align: "center",
-    },
-    [h(ImageList, { images }), h(ImageUploader)]
+    FileManagerContext.Provider,
+    { value: { images, refresh, client, acceptedMimeTypes } },
+    [
+      h(
+        Group,
+        {
+          spacing: "small",
+          direction: "column",
+          justify: "center",
+          align: "center",
+        },
+        [h(ImageList, { images }), h(ImageUploader)]
+      ),
+    ]
   );
 }
 
