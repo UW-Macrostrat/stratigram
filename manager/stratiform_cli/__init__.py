@@ -55,6 +55,9 @@ def sync():
 
     db.session.execute("NOTIFY pgrst, 'reload config'")
 
+    # We need to restart the storage API to pick up configuration changes
+    compose("restart storage_api")
+
 
 @app.command()
 def down():

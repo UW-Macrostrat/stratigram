@@ -14,18 +14,6 @@ const storageClient = new StorageClient(storageURL, {
   Authorization: `Bearer ${storageToken}`,
 });
 
-const client = storageClient.from("section_images");
-
-function onDrop(files: File[]) {
-  const file = files[0];
-  client
-    .upload(file.name, file, {
-      upsert: true,
-    })
-    .then((res) => {
-      console.log(res);
-    });
-}
 
 function ImageUploader() {
   const { client, refresh, acceptedMimeTypes } = useContext(FileManagerContext);
@@ -124,7 +112,7 @@ function ImageList({ images }: { images: ImageData[] }) {
 const FileManagerContext = createContext(null);
 
 function ImageManager({
-  bucketName = "section_images",
+  bucketName = "section-3-images",
   acceptedMimeTypes = [
     MIME_TYPES.png,
     MIME_TYPES.jpeg,

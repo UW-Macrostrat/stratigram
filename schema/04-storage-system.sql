@@ -5,8 +5,7 @@
  */
 CREATE SCHEMA IF NOT EXISTS storage;
 
-
-CREATE TABLE storage.migrations (
+CREATE TABLE migrations (
   id integer NOT NULL,
   name character varying(100) NOT NULL,
   hash character varying(40) NOT NULL,
@@ -19,7 +18,9 @@ CREATE TABLE IF NOT EXISTS storage.buckets (
   name text NOT NULL,
   owner uuid REFERENCES auth.users(id),
   created_at timestamptz DEFAULT NOW(),
-  updated_at timestamptz DEFAULT NOW()
+  updated_at timestamptz DEFAULT NOW(),
+  -- Manage associations needed for authentication
+  section_id integer NOT NULL REFERENCES stratiform.section(id) ON DELETE CASCADE
 );
 
 CREATE UNIQUE INDEX bname ON storage.buckets USING BTREE (name);

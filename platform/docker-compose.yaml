@@ -76,3 +76,13 @@ services:
       - MINIO_ROOT_USER=$STORAGE_KEY
       - MINIO_ROOT_PASSWORD=$STORAGE_SECRET
       - MINIO_DOMAIN=storage
+  createbuckets:
+    image: minio/mc
+    depends_on:
+      - storage
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc config host add storage http://storage:9000 ${STORAGE_KEY} ${STORAGE_SECRET};
+      /usr/bin/mc mb storage/${STORAGE_BUCKET};
+      exit 0;
+      "
