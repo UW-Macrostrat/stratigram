@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS stratiform.project (
 -- Facies
 CREATE TABLE IF NOT EXISTS stratiform.facies_model (
   id serial PRIMARY KEY,
-  project_id integer NOT NULL REFERENCES stratiform.project(id),
+  project_id integer NOT NULL REFERENCES stratiform.project(id) ON DELETE CASCADE,
   name text NOT NULL,
   description text,
   UNIQUE (project_id, name)
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS stratiform.facies_model (
 
 CREATE TABLE IF NOT EXISTS stratiform.facies (
   id serial PRIMARY KEY,
-  model_id integer NOT NULL REFERENCES stratiform.facies_model(id),
+  model_id integer NOT NULL REFERENCES stratiform.facies_model(id) ON DELETE CASCADE,
   name text NOT NULL,
   description text,
   color text,

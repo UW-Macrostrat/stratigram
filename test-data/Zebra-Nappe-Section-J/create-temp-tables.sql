@@ -3,6 +3,7 @@ CREATE SCHEMA stratiform_import;
 
 CREATE TABLE stratiform_import.lithology (
   id text,
+  name text,
   member_of text,
   pattern text
 );
@@ -31,23 +32,23 @@ CREATE TABLE stratiform_import.note (
   symbol text
 );
 
-INSERT INTO stratiform_import.lithology(id, member_of, pattern)
+INSERT INTO stratiform_import.lithology(id, name, member_of, pattern)
 VALUES
-('clastic',NULL,NULL),
-('carbonate',NULL,NULL),
-('siltstone','clastic',NULL),
-('sandstone','clastic',NULL),
-('mudstone','clastic',NULL),
-('shale','clastic',NULL),
-('limestone','carbonate',NULL),
-('dolomite','carbonate',NULL),
-('dolomitic siltstone','siltstone',NULL),
-('calcareous siltstone','siltstone',NULL),
-('conglomerate','clastic',NULL),
-('lime mudstone','limestone','lime_mudstone'),
-('sandy dolomite','dolomite','sandy-dolomite'),
-('silty dolomite','dolomite','dolomite-mudstone'),
-('dolomite mudstone','dolomite','dolomite-mudstone');
+('clastic','Siliciclastic', NULL,NULL),
+('carbonate','Carbonate',NULL,NULL),
+('siltstone','Siltstone', 'clastic',NULL),
+('sandstone','Sandstone', 'clastic',NULL),
+('mudstone','Mudstone', 'clastic',NULL),
+('shale','Shale','clastic',NULL),
+('limestone','Limestone','carbonate',NULL),
+('dolomite','Dolomite','carbonate',NULL),
+('dolomitic siltstone','Dolomitic siltstone','siltstone',NULL),
+('calcareous siltstone','Calcareous siltstone','siltstone',NULL),
+('conglomerate','Conglomerate','clastic',NULL),
+('lime mudstone','Lime mudstone','limestone','lime_mudstone'),
+('sandy dolomite','Sandy dolomite','dolomite','sandy-dolomite'),
+('silty dolomite','Silty dolomite','dolomite','dolomite-mudstone'),
+('dolomite mudstone','Dolomite mudstone','dolomite','dolomite-mudstone');
 
 
 INSERT INTO stratiform_import.facies(id, name,description,color,member_of)
