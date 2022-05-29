@@ -8,6 +8,9 @@ from macrostrat.database.utils import wait_for_database
 from macrostrat.utils import cmd, relative_path, working_directory
 from typer import Typer
 from subprocess import Popen
+from requests import post
+from rich import print
+from requests.exceptions import HTTPError
 
 # Config loading
 
@@ -53,6 +56,32 @@ def import_test_data():
     files.sort()
     for fn in files:
         db.exec_sql(fn)
+
+    sql = """SELECT b.name FROM storage.buckets b
+JOIN stratiform.column c ON b.column_id = c.id
+JOIN stratiform.project p ON c.project_id = p.id
+WHERE c.name = 'Section J'
+AND p.name = 'Zebra Nappe'"""
+
+    bucket_name = db.session.execute(sql).scalar()
+    print(bucket_name)
+
+    images = []
+    for pattern in ["*.jpg", "*.png"]:
+        images.extend(list(test_data_dir.glob(pattern)))
+
+    for image in images:
+        files = {image.name: image.open("rb")}
+        uri = api_url + f"/api/storage/object/{bucket_name}/{image.name}"
+        try:
+            res = post(
+                uri,
+                files=files,
+                headers={"Authorization": "Bearer " + environ.get("SERVICE_KEY")},
+            )
+            res.raise_for_status()
+        except HTTPError as err:
+            print(err)
 
     # files = {"upload_file": open("file.txt", "rb")}
     # values = {"DB": "photcat", "OUT": "csv", "SHORT": "short"}
