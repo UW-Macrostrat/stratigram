@@ -16,6 +16,7 @@ root = (here / "../..").resolve()
 load_dotenv(root / ".env")
 
 db_url = environ.get("STRATIFORM_DATABASE")
+api_url = environ.get("STRATIFORM_API")
 
 # App
 app = Typer()
@@ -41,6 +42,22 @@ def up():
     compose("exec gateway nginx -s reload")
 
     follow_logs()
+
+
+@app.command(name="import-test-data")
+def import_test_data():
+    test_data_dir = root / "test-data" / "Zebra-Nappe-Section-J"
+    db = Database(db_url)
+
+    files = list(test_data_dir.glob("*.sql"))
+    files.sort()
+    for fn in files:
+        db.exec_sql(fn)
+
+    # files = {"upload_file": open("file.txt", "rb")}
+    # values = {"DB": "photcat", "OUT": "csv", "SHORT": "short"}
+    # url = api_url+"/api/v1/upload"
+    # r = requests.post(url, files=files, data=values)
 
 
 @app.command()
