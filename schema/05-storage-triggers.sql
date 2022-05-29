@@ -1,10 +1,10 @@
-CREATE OR REPLACE FUNCTION stratiform.section_insert_trigger()
+CREATE OR REPLACE FUNCTION stratiform.column_insert_trigger()
 RETURNS trigger AS $$
 DECLARE bucket_name text;
 BEGIN
-  bucket_name := 'section-' || NEW.id || '-images';
+  bucket_name := 'column-' || NEW.id || '-images';
   -- Insert a new bucket for section images
-  INSERT INTO storage.buckets (id, name, section_id)
+  INSERT INTO storage.buckets (id, name, column_id)
   SELECT
     bucket_name,
     bucket_name,
@@ -14,6 +14,6 @@ BEGIN
 END $$ LANGUAGE plpgsql;
 
 
-CREATE OR REPLACE TRIGGER stratiform_section_insert_trigger
-AFTER INSERT ON stratiform.section
-FOR EACH ROW EXECUTE PROCEDURE stratiform.section_insert_trigger();
+CREATE OR REPLACE TRIGGER stratiform_column_insert_trigger
+AFTER INSERT ON stratiform.column
+FOR EACH ROW EXECUTE PROCEDURE stratiform.column_insert_trigger();
