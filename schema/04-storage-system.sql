@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS storage.buckets (
   created_at timestamptz DEFAULT NOW(),
   updated_at timestamptz DEFAULT NOW(),
   -- Manage associations needed for authentication
-  section_id integer NOT NULL REFERENCES stratiform.section(id) ON DELETE CASCADE
+  column_id integer NOT NULL REFERENCES stratiform.column(id) ON DELETE CASCADE
 );
 
 CREATE UNIQUE INDEX bname ON storage.buckets USING BTREE (name);

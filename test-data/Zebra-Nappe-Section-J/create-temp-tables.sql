@@ -1,4 +1,5 @@
-CREATE SCHEMA IF NOT EXISTS stratiform_import;
+DROP SCHEMA IF EXISTS stratiform_import CASCADE;
+CREATE SCHEMA stratiform_import;
 
 CREATE TABLE stratiform_import.lithology (
   id text,
