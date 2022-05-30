@@ -1,6 +1,5 @@
 import h from "@macrostrat/hyper";
 import { useAPIQuery } from "./data-service";
-import { LinkCard } from "@macrostrat/ui-components";
 import {
   BrowserRouter as Router,
   Routes,
@@ -17,10 +16,7 @@ function Project({ project }) {
 }
 
 function ProjectList() {
-  const { data: projects } = useAPIQuery(
-    (p) => p.from("project").select("*"),
-    []
-  );
+  const { data: projects } = useAPIQuery("project", (q) => q.select("*"), []);
   if (projects == null) return null;
   return h(
     "div.project-list",
@@ -43,10 +39,10 @@ function ColumnList({ columns }) {
 
 function ColumnsListPage() {
   const { project_id } = useParams();
-  const { data } = useAPIQuery(
-    (p) => p.from("project").select("name, column(id, name)"),
-    []
-  );
+  const { data } = useAPIQuery<
+    "project",
+    { name: string; column: { id: number; name: string }[] }
+  >("project", (q) => q.select("name, column(id, name)"), []);
   const project = data?.[0];
   if (project == null) return null;
   const { column, name } = project;
@@ -58,10 +54,7 @@ function ColumnsListPage() {
 }
 
 function App() {
-  const { data: projects } = useAPIQuery(
-    (p) => p.from("project").select("*"),
-    []
-  );
+  const { data: projects } = useAPIQuery("project", (q) => q.select("*"), []);
 
   return h("div.app", [
     h(Router, [

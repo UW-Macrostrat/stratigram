@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -a
+source .env
+set +a
+
+yarn run openapi-typescript $API_URL/ --output ./generated/api-types.ts
