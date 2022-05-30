@@ -10,12 +10,12 @@ up to migration 0009
 CREATE SCHEMA IF NOT EXISTS storage;
 
 -- We shadow the 'migrations' table, at least for now...
-CREATE TABLE migrations (
-  id serial PRIMARY KEY,
-  name character varying(100) NOT NULL,
-  hash character varying(40) NOT NULL DEFAULT uuid_generate_v4(),
-  executed_at timestamp without time zone DEFAULT now()
-);
+-- CREATE TABLE migrations (
+--   id serial PRIMARY KEY,
+--   name character varying(100) NOT NULL,
+--   hash character varying(40) NOT NULL DEFAULT uuid_generate_v4(),
+--   executed_at timestamp without time zone DEFAULT now()
+-- );
 
 
 CREATE TABLE IF NOT EXISTS storage.buckets (
@@ -186,14 +186,14 @@ $function$;
 We have incorporated these migrations into this schema setup script,
 and seek to not run them.
 */
-INSERT INTO migrations (name)
-VALUES
-  ('initialmigration'),
-  ('pathtoken-column'),
-  ('add-migration-rls'),
-  ('add-size-functions'),
-  ('change-column-name-in-get-size'),
-  ('add-rls-to-buckets'),
-  ('add-public-to-buckets'),
-  ('fix-search-function'),
-  ('search-files-search-function');
+-- INSERT INTO migrations (name)
+-- VALUES
+--   ('initialmigration'),
+--   ('pathtoken-column'),
+--   ('add-migration-rls'),
+--   ('add-size-functions'),
+--   ('change-column-name-in-get-size'),
+--   ('add-rls-to-buckets'),
+--   ('add-public-to-buckets'),
+--   ('fix-search-function'),
+--   ('search-files-search-function');

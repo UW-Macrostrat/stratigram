@@ -40,9 +40,10 @@ def follow_logs(container=""):
 
 @app.command()
 def up():
-    compose("up", "-d")
+    compose("up", "--build", "-d")
 
     compose("exec gateway nginx -s reload")
+    compose("restart storage_api")
 
     follow_logs()
 
