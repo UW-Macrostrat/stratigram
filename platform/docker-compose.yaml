@@ -33,7 +33,7 @@ services:
       database:
         condition: service_healthy
   storage_api:
-    image: supabase/storage-api:v0.16.5
+    build: ./storage_api
     expose:
       - 5000
     ports:

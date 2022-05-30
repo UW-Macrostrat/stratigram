@@ -112,7 +112,7 @@ function ImageList({ images }: { images: ImageData[] }) {
 const FileManagerContext = createContext(null);
 
 function ImageManager({
-  bucketName = "section-3-images",
+  bucketName = "column-2-images",
   acceptedMimeTypes = [
     MIME_TYPES.png,
     MIME_TYPES.jpeg,

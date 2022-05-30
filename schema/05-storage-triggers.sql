@@ -17,3 +17,12 @@ END $$ LANGUAGE plpgsql;
 CREATE OR REPLACE TRIGGER stratiform_column_insert_trigger
 AFTER INSERT ON stratiform.column
 FOR EACH ROW EXECUTE PROCEDURE stratiform.column_insert_trigger();
+
+-- Insert buckets for each column that doesn't currently have one.
+INSERT INTO storage.buckets (id, name, column_id)
+SELECT
+  'column-' || id || '-images',
+  'column-' || id || '-images',
+  id
+FROM stratiform.column
+WHERE id NOT IN (SELECT column_id FROM storage.buckets);
