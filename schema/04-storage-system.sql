@@ -9,15 +9,6 @@ up to migration 0009
  */
 CREATE SCHEMA IF NOT EXISTS storage;
 
--- We shadow the 'migrations' table, at least for now...
--- CREATE TABLE migrations (
---   id serial PRIMARY KEY,
---   name character varying(100) NOT NULL,
---   hash character varying(40) NOT NULL DEFAULT uuid_generate_v4(),
---   executed_at timestamp without time zone DEFAULT now()
--- );
-
-
 CREATE TABLE IF NOT EXISTS storage.buckets (
   id text NOT NULL PRIMARY KEY,
   name text NOT NULL,
@@ -48,7 +39,6 @@ CREATE UNIQUE INDEX bucketid_objname ON storage.objects USING BTREE (bucket_id, 
 
 CREATE INDEX name_prefix_search ON storage.objects(name text_pattern_ops);
 
-ALTER TABLE storage.migrations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE storage.objects ENABLE ROW LEVEL SECURITY;
 ALTER TABLE storage.buckets ENABLE ROW LEVEL SECURITY;
 
@@ -181,19 +171,3 @@ BEGIN
         group by obj.bucket_id;
 END
 $function$;
-
-/*
-We have incorporated these migrations into this schema setup script,
-and seek to not run them.
-*/
--- INSERT INTO migrations (name)
--- VALUES
---   ('initialmigration'),
---   ('pathtoken-column'),
---   ('add-migration-rls'),
---   ('add-size-functions'),
---   ('change-column-name-in-get-size'),
---   ('add-rls-to-buckets'),
---   ('add-public-to-buckets'),
---   ('fix-search-function'),
---   ('search-files-search-function');
