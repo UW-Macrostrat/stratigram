@@ -3830,6 +3830,7 @@ __metadata:
     "@mantine/core": ^4.2.6
     "@mantine/dropzone": ^4.2.6
     "@mantine/hooks": ^4.2.6
+    "@supabase/postgrest-js": ^0.37.2
     "@supabase/storage-js": ^1.7.0
     babel-loader: ^8.2.5
     concurrently: ^7.1.0
@@ -3840,6 +3841,8 @@ __metadata:
     json-loader: ^0.5.7
     react: ^17.0.0
     react-dom: ^17.0.0
+    react-router: ^6.3.0
+    react-router-dom: ^6.3.0
     regenerator-runtime: ^0.13.9
     style-loader: ^3.3.1
     stylus-loader: ^6.2.0
@@ -4082,7 +4085,7 @@ __metadata:
 
 "@macrostrat/ui-components@file:./packages/ui-components::locator=%40macrostrat%2Fui-components-monorepo%40workspace%3Adeps%2Fui-components":
   version: 1.1.4
-  resolution: "@macrostrat/ui-components@file:./packages/ui-components#./packages/ui-components::hash=e430e9&locator=%40macrostrat%2Fui-components-monorepo%40workspace%3Adeps%2Fui-components"
+  resolution: "@macrostrat/ui-components@file:./packages/ui-components#./packages/ui-components::hash=18d26c&locator=%40macrostrat%2Fui-components-monorepo%40workspace%3Adeps%2Fui-components"
   dependencies:
     "@babel/polyfill": ^7.4.4
     "@blueprintjs/core": ^4.3.0
@@ -4116,7 +4119,7 @@ __metadata:
     "@types/react-dom": ^17
     react: ^16.8.6 || ^17
     react-dom: ^16.8.6 || ^17
-  checksum: f30c999c05705fd89b6cff4bafa7fd20bdb1f0e107fb12842c687891aa7bd384b36786b632a3e3d1611280d21a98d52c8fe815a3831f373c24553e9795e2e453
+  checksum: 0c6d193bf39239133fbee932c36005ca23f433c2d05eb016bec3b4899f6d4e8c56f720c0b3dace962b985a272a625ab9617f768669297f0c8771ece54ea36266
   languageName: node
   linkType: hard
 
@@ -7427,6 +7430,15 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
   checksum: 38bcb5eda10938a1cab403ff2e5575ae3a9567b23ecad8bd90a7fc5b23acf537bb56195053df8f94727811c775ee7156b0541f40892f0d65cf9b4f58c063943a
+  languageName: node
+  linkType: hard
+
+"@supabase/postgrest-js@npm:^0.37.2":
+  version: 0.37.2
+  resolution: "@supabase/postgrest-js@npm:0.37.2"
+  dependencies:
+    cross-fetch: ^3.0.6
+  checksum: 173bd75f315900119425b27007b69fb5517eb482d22e21f3daeb62d0982ce80199e271050181a6a29694f9a56675f381ccbfd7a0b2534815fa936511c0629992
   languageName: node
   linkType: hard
 
@@ -12813,7 +12825,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-fetch@npm:^3.1.0, cross-fetch@npm:^3.1.5":
+"cross-fetch@npm:^3.0.6, cross-fetch@npm:^3.1.0, cross-fetch@npm:^3.1.5":
   version: 3.1.5
   resolution: "cross-fetch@npm:3.1.5"
   dependencies:
@@ -17798,6 +17810,15 @@ __metadata:
     tiny-warning: ^1.0.0
     value-equal: ^1.0.1
   checksum: addd84bc4683929bae4400419b5af132ff4e4e9b311a0d4e224579ea8e184a6b80d7f72c55927e4fa117f69076a9e47ce082d8d0b422f1a9ddac7991490ca1d0
+  languageName: node
+  linkType: hard
+
+"history@npm:^5.2.0":
+  version: 5.3.0
+  resolution: "history@npm:5.3.0"
+  dependencies:
+    "@babel/runtime": ^7.7.6
+  checksum: d73c35df49d19ac172f9547d30a21a26793e83f16a78386d99583b5bf1429cc980799fcf1827eb215d31816a6600684fba9686ce78104e23bd89ec239e7c726f
   languageName: node
   linkType: hard
 
@@ -28260,6 +28281,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-router-dom@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "react-router-dom@npm:6.3.0"
+  dependencies:
+    history: ^5.2.0
+    react-router: 6.3.0
+  peerDependencies:
+    react: ">=16.8"
+    react-dom: ">=16.8"
+  checksum: 77603a654f8a8dc7f65535a2e5917a65f8d9ffcb06546d28dd297e52adcc4b8a84377e0115f48dca330b080af2da3e78f29d590c89307094d36927d2b1751ec3
+  languageName: node
+  linkType: hard
+
 "react-router@npm:5.3.3, react-router@npm:^5.1.2":
   version: 5.3.3
   resolution: "react-router@npm:5.3.3"
@@ -28277,6 +28311,17 @@ __metadata:
   peerDependencies:
     react: ">=15"
   checksum: 52a9f28fa97577fda18a8ed2922b658704eafe873e444fe07202640d55d9e81e67c03efd2b2a5b80e3a80e8be8352df826a227ce5f42b33b91bef853c74d4841
+  languageName: node
+  linkType: hard
+
+"react-router@npm:6.3.0, react-router@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "react-router@npm:6.3.0"
+  dependencies:
+    history: ^5.2.0
+  peerDependencies:
+    react: ">=16.8"
+  checksum: 7be673f5e72104be01e6ab274516bdb932efd93305243170690f6560e3bd1035dd1df3d3c9ce1e0f452638a2529f43a1e77dcf0934fc8031c4783da657be13ca
   languageName: node
   linkType: hard
 

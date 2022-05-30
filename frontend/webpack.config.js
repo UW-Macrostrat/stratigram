@@ -48,6 +48,7 @@ const plugins = [
     ...gitEnv,
     STORAGE_URL: process.env.STORAGE_URL,
     STORAGE_TOKEN: process.env.STORAGE_TOKEN,
+    API_URL: process.env.API_URL,
   }),
 ];
 
