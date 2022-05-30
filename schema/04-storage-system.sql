@@ -2,14 +2,19 @@
  A simplified version of Supabase's storage schema.
  https://github.com/supabase/storage-api/blob/c8b1053dacec0989c8e8189b6145eb1780e217a4/src/test/db/02-storage-schema.sql
  
+Migrations here were applied by hand
+https://github.com/supabase/storage-api/blob/0728cd0ff3ab9d527dc15abe5dd535f7aff47d76/migrations/tenant/0002-pathtoken-column.sql
+up to migration 0009
+
  */
 CREATE SCHEMA IF NOT EXISTS storage;
 
+-- We shadow the 'migrations' table, at least for now...
 CREATE TABLE migrations (
-  id integer NOT NULL,
+  id serial PRIMARY KEY,
   name character varying(100) NOT NULL,
-  hash character varying(40) NOT NULL,
-  executed_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+  hash character varying(40) NOT NULL DEFAULT uuid_generate_v4(),
+  executed_at timestamp without time zone DEFAULT now()
 );
 
 
@@ -34,6 +39,8 @@ CREATE TABLE IF NOT EXISTS storage.objects (
   created_at timestamptz DEFAULT NOW(),
   updated_at timestamptz DEFAULT NOW(),
   last_accessed_at timestamptz DEFAULT NOW(),
+  -- added in migration 0002
+  path_tokens text[] generated always as (string_to_array("name", '/')) stored,
   metadata jsonb
 );
 
@@ -41,8 +48,9 @@ CREATE UNIQUE INDEX bucketid_objname ON storage.objects USING BTREE (bucket_id, 
 
 CREATE INDEX name_prefix_search ON storage.objects(name text_pattern_ops);
 
+ALTER TABLE storage.migrations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE storage.objects ENABLE ROW LEVEL SECURITY;
-
+ALTER TABLE storage.buckets ENABLE ROW LEVEL SECURITY;
 
 CREATE OR REPLACE FUNCTION storage.foldername(name text)
 RETURNS text [] LANGUAGE plpgsql AS $$
@@ -77,42 +85,115 @@ RETURN reverse(split_part(reverse(_filename), '.', 1));
 END $$;
 
 
--- @todo can this query be optimised further?
-CREATE OR REPLACE FUNCTION storage.search(
+-- Added in migration 0009
+create or replace function storage.search (
   prefix text,
   bucketname text,
-  limits int DEFAULT 100,
-  levels int DEFAULT 1,
-  offsets int DEFAULT 0
-) RETURNS TABLE (
-  name text,
-  id uuid,
-  updated_at TIMESTAMPTZ,
-  created_at TIMESTAMPTZ,
-  last_accessed_at TIMESTAMPTZ,
-  metadata jsonb
-) LANGUAGE plpgsql AS $$
-BEGIN RETURN query
-WITH files_folders AS (
-  SELECT
-    ((string_to_array(objects.name, '/')) [levels]) AS folder
-  FROM objects
-  WHERE
-    objects.name ilike prefix || '%'
-    AND bucket_id = bucketname
-  GROUP BY
-    folder
-  LIMIT
-    limits OFFSET offsets
-)
-SELECT
-  files_folders.folder AS name,
-  objects.id,
-  objects.updated_at,
-  objects.created_at,
-  objects.last_accessed_at,
-  objects.metadata
-FROM files_folders
-  LEFT JOIN objects ON prefix || files_folders.folder = objects.name
-  AND objects.bucket_id = bucketname;
-END $$;
+  limits int default 100,
+  levels int default 1,
+  offsets int default 0,
+  search text default '',
+  sortcolumn text default 'name',
+  sortorder text default 'asc'
+) returns table (
+    name text,
+    id uuid,
+    updated_at timestamptz,
+    created_at timestamptz,
+    last_accessed_at timestamptz,
+    metadata jsonb
+  )
+as $$
+declare
+  v_order_by text;
+  v_sort_order text;
+begin
+  case
+    when sortcolumn = 'name' then
+      v_order_by = 'name';
+    when sortcolumn = 'updated_at' then
+      v_order_by = 'updated_at';
+    when sortcolumn = 'created_at' then
+      v_order_by = 'created_at';
+    when sortcolumn = 'last_accessed_at' then
+      v_order_by = 'last_accessed_at';
+    else
+      v_order_by = 'name';
+  end case;
+
+  case
+    when sortorder = 'asc' then
+      v_sort_order = 'asc';
+    when sortorder = 'desc' then
+      v_sort_order = 'desc';
+    else
+      v_sort_order = 'asc';
+  end case;
+
+  v_order_by = v_order_by || ' ' || v_sort_order;
+
+  return query execute
+    'with folders as (
+       select path_tokens[$1] as folder
+       from storage.objects
+         where objects.name ilike $2 || $3 || ''%''
+           and bucket_id = $4
+           and array_length(regexp_split_to_array(objects.name, ''/''), 1) <> $1
+       group by folder
+       order by folder ' || v_sort_order || '
+     )
+     (select folder as "name",
+            null as id,
+            null as updated_at,
+            null as created_at,
+            null as last_accessed_at,
+            null as metadata from folders)
+     union all
+     (select path_tokens[$1] as "name",
+            id,
+            updated_at,
+            created_at,
+            last_accessed_at,
+            metadata
+     from storage.objects
+     where objects.name ilike $2 || $3 || ''%''
+       and bucket_id = $4
+       and array_length(regexp_split_to_array(objects.name, ''/''), 1) = $1
+     order by ' || v_order_by || ')
+     limit $5
+     offset $6' using levels, prefix, search, bucketname, limits, offsets;
+end;
+$$ language plpgsql stable;
+
+
+-- added in change-column-name-in-get-size migration
+CREATE OR REPLACE FUNCTION storage.get_size_by_bucket()
+ RETURNS TABLE (
+    size BIGINT,
+    bucket_id text
+  )
+ LANGUAGE plpgsql
+AS $function$
+BEGIN
+    return query
+        select sum((metadata->>'size')::int) as size, obj.bucket_id
+        from "storage".objects as obj
+        group by obj.bucket_id;
+END
+$function$;
+
+/*
+We have incorporated these migrations into this schema setup script,
+and seek to not run them.
+*/
+INSERT INTO migrations (name)
+VALUES
+  ('initialmigration'),
+  ('pathtoken-column'),
+  ('add-migration-rls'),
+  ('add-size-functions'),
+  ('change-column-name-in-get-size'),
+  ('add-rls-to-buckets'),
+  ('add-public-to-buckets'),
+  ('fix-search-function'),
+  ('search-files-search-function');
