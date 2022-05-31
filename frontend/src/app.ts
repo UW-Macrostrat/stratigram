@@ -7,50 +7,61 @@ import {
   useParams,
   Link,
 } from "react-router-dom";
+import ExampleUsersTable from "./model-table/fancy-example";
+import { ModelTable, LinkRow } from "./model-table";
 
-function Project({ project }) {
-  return h(Link, { to: `/projects/${project.id}` }, [
-    h("h3", project.name),
-    h("p", project.description),
-  ]);
+function ProjectRow({ data }) {
+  return h(LinkRow, { to: `/projects/${data.id}`, data });
 }
 
 function ProjectList() {
   const { data: projects } = useAPIQuery("project", (q) => q.select("*"), []);
   if (projects == null) return null;
-  return h(
-    "div.project-list",
-    projects.map((p) => h(Project, { project: p }))
-  );
+  return h(ModelTable, {
+    data: projects,
+    title: "Projects",
+    rowComponent: ProjectRow,
+  });
 }
 
 function ProjectsListPage() {
   return h("div.project-page", [h("h2", "Projects"), h(ProjectList)]);
 }
 
-function ColumnList({ columns }) {
-  if (columns == null) return null;
-  return h(
-    "div.column-list",
-    null,
-    columns.map((c) => h(Link, { to: `/column/${c.id}` }, c.name))
-  );
+function ColumnRow({ data }) {
+  return h(LinkRow, {
+    to: `/columns/${data.id}`,
+    data,
+  });
 }
+
+type ColumnListData = { name: string; column: { id: number; name: string }[] };
 
 function ColumnsListPage() {
   const { project_id } = useParams();
-  const { data } = useAPIQuery<
+  const { data } = useAPIQuery<"project", ColumnListData>(
     "project",
-    { name: string; column: { id: number; name: string }[] }
-  >("project", (q) => q.select("name, column(id, name)"), []);
+    (q) => q.select("name, column(id, name)"),
+    []
+  );
   const project = data?.[0];
   if (project == null) return null;
   const { column, name } = project;
 
   return h("div.columns-page", [
-    h("h1", project.name),
-    h(ColumnList, { columns: column }),
+    h("h1", name),
+    h(ModelTable, { data: column, title: "Columns", rowComponent: ColumnRow }),
+    h("p", null, h(Link, { to: "users" }, "Manage project users")),
   ]);
+}
+
+function ManageUsersPage() {
+  // A placeholder for future functionality
+  return h(ExampleUsersTable);
+}
+
+function ColumnPage() {
+  return h("div.column-page", [h("h1", "Column")]);
 }
 
 function App() {
@@ -64,6 +75,11 @@ function App() {
           path: "/projects/:project_id",
           element: h(ColumnsListPage),
         }),
+        h(Route, {
+          path: "/projects/:project_id/users",
+          element: h(ManageUsersPage),
+        }),
+        h(Route, { path: "/columns/:column_id", element: h(ColumnPage) }),
         h(Route, { index: true, element: h(ProjectsListPage) }),
       ]),
       h("footer"),

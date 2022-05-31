@@ -12,7 +12,7 @@ function useAPIQuery<T extends keyof definitions, Data = definitions[T]>(
   relation: T,
   builder: (
     q: PostgrestQueryBuilder<definitions[T]>
-  ) => PostgrestFilterBuilder<Data>,
+  ) => PostgrestFilterBuilder<definitions[T] | Data>,
   deps: any[]
 ) {
   type Schema = definitions[T];
