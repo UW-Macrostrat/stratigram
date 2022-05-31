@@ -14,8 +14,9 @@
   "dependencies": {
     "@blueprintjs/core": "^4.3.0",
     "@macrostrat/hyper": "^2.1.4",
-    "@mantine/core": "^4.2.6",
+    "@mantine/core": "^4.2.7",
     "@mantine/dropzone": "^4.2.6",
+    "@mantine/form": "^4.2.7",
     "@mantine/hooks": "^4.2.6",
     "@supabase/postgrest-js": "^0.37.2",
     "@supabase/storage-js": "^1.7.0",
@@ -26,7 +27,8 @@
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
     "regenerator-runtime": "^0.13.9",
-    "stylus-loader": "^6.2.0"
+    "stylus-loader": "^6.2.0",
+    "use-react-router-breadcrumbs": "^3.2.1"
   },
   "resolutions": {
     "react": "^17.0.0",

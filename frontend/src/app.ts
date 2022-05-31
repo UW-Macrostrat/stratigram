@@ -9,9 +9,11 @@ import {
 } from "react-router-dom";
 import ExampleUsersTable from "./model-table/fancy-example";
 import { ModelTable, LinkRow } from "./model-table";
+import { Box } from "@mantine/core";
+import { Button } from "@mantine/core";
 
 function ProjectRow({ data }) {
-  return h(LinkRow, { to: `/projects/${data.id}`, data });
+  return h(LinkRow, { to: `/project/${data.id}`, data });
 }
 
 function ProjectList() {
@@ -19,13 +21,14 @@ function ProjectList() {
   if (projects == null) return null;
   return h(ModelTable, {
     data: projects,
+    model: "project",
     title: "Projects",
     rowComponent: ProjectRow,
   });
 }
 
 function ProjectsListPage() {
-  return h("div.project-page", [h("h2", "Projects"), h(ProjectList)]);
+  return h("div.project-page", [h(ProjectList)]);
 }
 
 function ColumnRow({ data }) {
@@ -64,25 +67,42 @@ function ColumnPage() {
   return h("div.column-page", [h("h1", "Column")]);
 }
 
+function IntroPage() {
+  return h("div.intro-page", [
+    h("p", "Stratiform helps capture stratigraphic columns"),
+    h(
+      Button,
+      { component: Link, to: "/projects", variant: "outline", color: "violet" },
+      "Projects"
+    ),
+  ]);
+}
+
 function App() {
   const { data: projects } = useAPIQuery("project", (q) => q.select("*"), []);
 
   return h("div.app", [
-    h(Router, [
-      h("header", [h("h1", null, h(Link, { to: "/" }, "Stratiform"))]),
-      h(Routes, [
-        h(Route, {
-          path: "/projects/:project_id",
-          element: h(ColumnsListPage),
-        }),
-        h(Route, {
-          path: "/projects/:project_id/users",
-          element: h(ManageUsersPage),
-        }),
-        h(Route, { path: "/columns/:column_id", element: h(ColumnPage) }),
-        h(Route, { index: true, element: h(ProjectsListPage) }),
+    h(Box, { padding: "xlarge", sx: { maxWidth: 600 }, mx: "auto" }, [
+      h(Router, [
+        h("header", [h("h1", null, h(Link, { to: "/" }, "Stratiform"))]),
+        h(Routes, [
+          h(Route, {
+            path: "/projects*",
+            element: h(ProjectsListPage),
+          }),
+          h(Route, {
+            path: "/project/:project_id",
+            element: h(ColumnsListPage),
+          }),
+          h(Route, {
+            path: "/projects/:project_id/users",
+            element: h(ManageUsersPage),
+          }),
+          h(Route, { path: "/columns/:column_id", element: h(ColumnPage) }),
+          h(Route, { index: true, element: h(IntroPage) }),
+        ]),
+        h("footer"),
       ]),
-      h("footer"),
     ]),
   ]);
 }
