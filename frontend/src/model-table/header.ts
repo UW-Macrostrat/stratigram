@@ -5,13 +5,6 @@ import { Text, Button } from "@mantine/core";
 import { Link, useMatch } from "react-router-dom";
 import { Breadcrumbs } from "@mantine/core";
 
-const items = [
-  { title: "Projects", href: "#" },
-  { title: "New", href: "#" },
-].map((item, index) =>
-  h(Text, { size: "sm", to: item.href, key: index }, item.title)
-);
-
 const BreadcrumbText = (props) => h(Text, { size: "sm", ...props });
 
 function ModelTableBreadcrumbs({ title, rootRoute, items = [] }) {
@@ -34,9 +27,7 @@ export function ModelButton(props) {
 
 export function ModelTableHeader(props) {
   const { title, rootRoute, children } = props;
-  console.log(props);
   const onNewPage = useMatch(rootRoute + "/new");
-  console.log(onNewPage);
   let items: any[] = [];
   if (onNewPage) {
     items.push(h("div", null, h(BreadcrumbText, null, "New")));

@@ -28,10 +28,7 @@ const baseEditorFields = [
 ];
 
 function ProjectManagementPage() {
-  const { data: projects } = useAPIQuery("project", (q) => q.select("*"), []);
-  if (projects == null) return null;
   return h(ModelManagementPage, {
-    data: projects,
     model: "project",
     title: "Projects",
     rowComponent: ProjectRow,
@@ -54,7 +51,7 @@ type ColumnListData = { name: string; column: { id: number; name: string }[] };
 
 function ColumnsListPage() {
   const { project_id } = useParams();
-  const { data } = useAPIQuery<"project", ColumnListData>(
+  const { data, refresh } = useAPIQuery<"project", ColumnListData>(
     "project",
     (q) => q.select("name, column(id, name)"),
     []
@@ -66,7 +63,6 @@ function ColumnsListPage() {
   return h("div.columns-page", [
     h("h1", name),
     h(ModelManagementPage, {
-      data: column,
       title: "Columns",
       rowComponent: ColumnRow,
       model: "column",
@@ -75,6 +71,10 @@ function ColumnsListPage() {
       initialValues: {
         name: "",
         description: "",
+        project_id,
+      },
+      onUpdate() {
+        refresh();
       },
     }),
     h("p", null, h(Link, { to: "users" }, "Manage project users")),

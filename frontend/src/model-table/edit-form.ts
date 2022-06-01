@@ -1,15 +1,15 @@
 import { useForm } from "@mantine/form";
 import h from "@macrostrat/hyper";
 import { TickIcon, CrossIcon } from "evergreen-ui";
-import { Box, Textarea, TextInput, Group } from "@mantine/core";
+import { Group } from "@mantine/core";
 import { ModelTableHeader, ModelButton } from "./header";
+import { useAPIQuery, apiClient } from "../data-service";
+import { useCallback, useState } from "react";
 
 export function ModelFormFields({ form, fields }) {
   return h(
-    Box,
-    {
-      sx: { padding: "1rem" },
-    },
+    "div",
+    { style: { padding: "1rem" } },
     fields.map((d) => {
       const { component, id, label, ...rest } = d;
       return h(component, {
@@ -32,14 +32,31 @@ function isSame(a, b) {
   return true;
 }
 
-export function ModelEditor({ initialValues, onSubmit, fields = [], ...rest }) {
+export function ModelEditor({
+  initialValues,
+  onSuccess,
+  model,
+  fields = [],
+  ...rest
+}) {
+  // Keep initial values so we can reset them on form submit
   const form = useForm({
     initialValues,
   });
 
+  const onSubmit = useCallback((values) => {
+    apiClient
+      .from(model)
+      .insert([values])
+      .then((res) => {
+        if (res.data == null) return;
+        onSuccess?.(res.data);
+      });
+  }, []);
+
   const disabled = isSame(form.values, initialValues);
 
-  return h("form", { onSubmit: form.onSubmit((d) => console.log(d)) }, [
+  return h("form", { onSubmit: form.onSubmit(onSubmit) }, [
     h(ModelTableHeader, rest, [
       h(Group, { spacing: "xs" }, [
         //h(ModelButton, { color: "orange", rightIcon: h(CrossIcon) }, "Cancel"),

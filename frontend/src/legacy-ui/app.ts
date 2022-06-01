@@ -135,7 +135,6 @@ class App extends StatefulComponent {
 
   // Interval management
   editInterval(obj) {
-    console.log("Edit interval");
     if (!this.state.inEditMode) {
       return;
     }

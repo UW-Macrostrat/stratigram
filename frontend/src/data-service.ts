@@ -3,7 +3,7 @@ import {
   PostgrestFilterBuilder,
   PostgrestQueryBuilder,
 } from "@supabase/postgrest-js";
-import { useState, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { definitions } from "../generated/api-types";
 
 const apiClient = new PostgrestClient(process.env.API_URL);
@@ -13,12 +13,17 @@ function useAPIQuery<T extends keyof definitions, Data = definitions[T]>(
   builder: (
     q: PostgrestQueryBuilder<definitions[T]>
   ) => PostgrestFilterBuilder<definitions[T] | Data>,
-  deps: any[]
+  deps: any[] = []
 ) {
   type Schema = definitions[T];
   const [data, setData] = useState<Data[]>(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [refreshToken, setRefreshToken] = useState(0);
+
+  const refresh = useCallback(() => {
+    setRefreshToken(refreshToken + 1);
+  }, [refreshToken]);
 
   useEffect(() => {
     setLoading(true);
@@ -35,9 +40,9 @@ function useAPIQuery<T extends keyof definitions, Data = definitions[T]>(
       .finally(() => {
         setLoading(false);
       });
-  }, deps);
+  }, [refreshToken, ...deps]);
 
-  return { data, error, loading };
+  return { data, error, loading, refresh };
 }
 
 export { apiClient, useAPIQuery };

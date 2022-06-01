@@ -1,8 +1,15 @@
 import h from "@macrostrat/hyper";
-import { Table, PlusIcon } from "evergreen-ui";
-import { useLinkClickHandler, Link, Routes, Route } from "react-router-dom";
+import { Table, PlusIcon, Spinner } from "evergreen-ui";
+import {
+  useLinkClickHandler,
+  Link,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import { ModelTableHeader, ModelButton } from "./header";
-import { ModelEditor } from "./project-form";
+import { ModelEditor } from "./edit-form";
+import { useAPIQuery } from "../data-service";
 
 export function LinkRow(props) {
   const { to, ...rest } = props;
@@ -22,7 +29,14 @@ export function BasicRow(props) {
   ]);
 }
 
-function ModelTableBody({ data, title, rowComponent = BasicRow, model }) {
+function ModelTableBody({ data, loading = false, rowComponent = BasicRow }) {
+  if (loading) {
+    return h(Table.Body, [h(Spinner)]);
+  }
+  if (data == null) {
+    return null;
+  }
+
   return h(
     Table.Body,
     null,
@@ -30,8 +44,27 @@ function ModelTableBody({ data, title, rowComponent = BasicRow, model }) {
   );
 }
 
-function ModelRoot({ ...props }) {
-  const { title, rootRoute, headerChildren = null, ...rest } = props;
+function ModelRoot({
+  title,
+  rootRoute,
+  model,
+  selector = (q) => q.select("*"),
+  headerChildren = null,
+  loading = false,
+  data,
+  ...rest
+}) {
+  // Get data from the model API if not provided up-front
+  if (data == null) {
+    const { data: dataFromAPI, loading: apiLoading } = useAPIQuery(
+      model,
+      selector,
+      []
+    );
+    data = dataFromAPI;
+    loading = apiLoading;
+  }
+
   return h([
     h(ModelTableHeader, { title, rootRoute }, [
       h(
@@ -44,7 +77,7 @@ function ModelRoot({ ...props }) {
         "New"
       ),
     ]),
-    h(ModelTableBody, rest),
+    h(ModelTableBody, { data, loading, ...rest }),
   ]);
 }
 
@@ -56,27 +89,53 @@ export function ModelTable(props) {
   ]);
 }
 
-export function ModelManagementPage(props) {
+enum ModelEditOperation {
+  Insert = "insert",
+  Update = "update",
+  Delete = "delete",
+}
+
+interface ModelManagementProps<T extends string = string, D = any> {
+  title: string;
+  model: T;
+  rootRoute: string;
+  editorFields: React.ReactNode[];
+  initialValues: { [key: string]: any };
+  rowComponent?: React.ComponentType<{ data: D }>;
+  onUpdate?(operation: ModelEditOperation, data?: D[]);
+}
+
+export function ModelManagementPage(props: ModelManagementProps<string, any>) {
   const {
-    rootRoute = "/projects",
+    rootRoute = "/",
     title,
+    model,
     editorFields,
     initialValues,
+    onUpdate,
     ...rest
   } = props;
+
+  const nav = useNavigate();
+
   return h(Table, { border: true }, [
     h(Routes, [
       h(Route, {
         path: "/",
-        element: h(ModelRoot, { rootRoute, title, ...rest }),
+        element: h(ModelRoot, { rootRoute, title, model, ...rest }),
       }),
       h(Route, {
         path: "/new",
         element: h(ModelEditor, {
           rootRoute,
           title,
+          model,
           fields: editorFields,
           initialValues,
+          onSuccess(data) {
+            onUpdate(ModelEditOperation.Insert, data);
+            nav(rootRoute + "/");
+          },
           ...rest,
         }),
       }),
