@@ -3873,6 +3873,7 @@ __metadata:
     file-loader: ^6.2.0
     html-webpack-plugin: ^5.5.0
     json-loader: ^0.5.7
+    prettier: ^2.7.1
     regenerator-runtime: ^0.13.9
     style-loader: ^3.3.1
     typescript: ^4.6.4
@@ -3884,7 +3885,7 @@ __metadata:
 
 "@macrostrat/timescale@file:./packages/timescale::locator=%40macrostrat%2Fui-components-monorepo%40workspace%3Adeps%2Fui-components":
   version: 1.0.2-1
-  resolution: "@macrostrat/timescale@file:./packages/timescale#./packages/timescale::hash=35c7c5&locator=%40macrostrat%2Fui-components-monorepo%40workspace%3Adeps%2Fui-components"
+  resolution: "@macrostrat/timescale@file:./packages/timescale#./packages/timescale::hash=a98c5a&locator=%40macrostrat%2Fui-components-monorepo%40workspace%3Adeps%2Fui-components"
   dependencies:
     "@macrostrat/column-components": ^0.8.2
     "@macrostrat/hyper": ^1.2.11
@@ -3898,7 +3899,7 @@ __metadata:
   peerDependencies:
     react: ^16.13.1
     react-dom: ^16.13.1
-  checksum: 3ac2ef4a92a615389b0d55197ad77bbb99567384456ace29eb5a5baffa4d949f102ac883030b1b0aafb0e21a31fb7709d363042552de580626e9ceac1dfc5360
+  checksum: 3cf8ab014103a217ad8cdfaf814ef9c0b62b5e197b1aaf21f42781bc281823648db1535e983f0f8f00b01cbead05ee7615374f2882a754ae5d6bd8c7a7d04293
   languageName: node
   linkType: hard
 
@@ -4089,7 +4090,7 @@ __metadata:
 
 "@macrostrat/ui-components@file:./packages/ui-components::locator=%40macrostrat%2Fui-components-monorepo%40workspace%3Adeps%2Fui-components":
   version: 1.1.4
-  resolution: "@macrostrat/ui-components@file:./packages/ui-components#./packages/ui-components::hash=18d26c&locator=%40macrostrat%2Fui-components-monorepo%40workspace%3Adeps%2Fui-components"
+  resolution: "@macrostrat/ui-components@file:./packages/ui-components#./packages/ui-components::hash=fe2162&locator=%40macrostrat%2Fui-components-monorepo%40workspace%3Adeps%2Fui-components"
   dependencies:
     "@babel/polyfill": ^7.4.4
     "@blueprintjs/core": ^4.3.0
@@ -4123,7 +4124,7 @@ __metadata:
     "@types/react-dom": ^17
     react: ^16.8.6 || ^17
     react-dom: ^16.8.6 || ^17
-  checksum: 0c6d193bf39239133fbee932c36005ca23f433c2d05eb016bec3b4899f6d4e8c56f720c0b3dace962b985a272a625ab9617f768669297f0c8771ece54ea36266
+  checksum: b4af669b9fe052672eef683bc98ddc9ba29b8957bfedcb500aa8eaa6cca3c662e74eaaa86ae4ee374ea57e767123aba376c2abd91c6fab23153e7e8ef66e16bf
   languageName: node
   linkType: hard
 
@@ -27267,6 +27268,15 @@ __metadata:
   bin:
     prettier: bin-prettier.js
   checksum: 48d08dde8e9fb1f5bccdd205baa7f192e9fc8bc98f86e1b97d919de804e28c806b0e6cc685e4a88211aa7987fa9668f30baae19580d87ced3ed0f2ec6572106f
+  languageName: node
+  linkType: hard
+
+"prettier@npm:^2.7.1":
+  version: 2.7.1
+  resolution: "prettier@npm:2.7.1"
+  bin:
+    prettier: bin-prettier.js
+  checksum: 55a4409182260866ab31284d929b3cb961e5fdb91fe0d2e099dac92eaecec890f36e524b4c19e6ceae839c99c6d7195817579cdffc8e2c80da0cb794463a748b
   languageName: node
   linkType: hard
 
