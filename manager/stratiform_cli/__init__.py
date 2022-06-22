@@ -11,6 +11,7 @@ from subprocess import Popen
 from requests import post
 from rich import print
 from requests.exceptions import HTTPError
+import mimetypes
 
 # Config loading
 
@@ -72,13 +73,16 @@ AND p.name = 'Zebra Nappe'"""
         images.extend(list(test_data_dir.glob(pattern)))
 
     for image in images:
-        files = {image.name: image.open("rb")}
+        mimetype = mime_type(image.name)
+        files = {"file": (image.name, image.open("rb"), mimetype)}
         uri = api_url + f"/api/storage/object/{bucket_name}/{image.name}"
         try:
             res = post(
                 uri,
                 files=files,
-                headers={"Authorization": "Bearer " + environ.get("SERVICE_KEY")},
+                headers={
+                    "Authorization": "Bearer " + environ.get("SERVICE_KEY"),
+                },
             )
             res.raise_for_status()
         except HTTPError as err:
@@ -113,3 +117,7 @@ def down():
 
 if __name__ == "__main__":
     app()
+
+
+def mime_type(filename):
+    return mimetypes.guess_type(filename)[0] or "application/octet-stream"

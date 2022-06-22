@@ -1,4 +1,4 @@
 #!/bin/bash
 # Description: This is a stand-in for a better control script that hopefully will be created.
 cd manager
-poetry run stratiform
+poetry run stratiform $@
