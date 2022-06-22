@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS storage.buckets (
   id text NOT NULL PRIMARY KEY,
   name text NOT NULL,
   owner uuid REFERENCES auth.users(id),
+  public boolean NOT NULL DEFAULT true,
   created_at timestamptz DEFAULT NOW(),
   updated_at timestamptz DEFAULT NOW(),
   -- Manage associations needed for authentication

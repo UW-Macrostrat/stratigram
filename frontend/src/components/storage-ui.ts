@@ -14,7 +14,6 @@ const storageClient = new StorageClient(storageURL, {
   Authorization: `Bearer ${storageToken}`,
 });
 
-
 function ImageUploader() {
   const { client, refresh, acceptedMimeTypes } = useContext(FileManagerContext);
   const onDrop = useCallback(
@@ -111,7 +110,7 @@ function ImageList({ images }: { images: ImageData[] }) {
 
 const FileManagerContext = createContext(null);
 
-function ImageManager({
+export function StorageUI({
   bucketName = "column-2-images",
   acceptedMimeTypes = [
     MIME_TYPES.png,
@@ -139,9 +138,3 @@ function ImageManager({
     ]
   );
 }
-
-function App() {
-  return h("div", [h(ImageManager)]);
-}
-
-export { App };
