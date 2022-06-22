@@ -6,6 +6,12 @@ import { ModelTableHeader, ModelButton } from "./header";
 import { useAPIQuery, apiClient } from "../data-service";
 import { useCallback, useState } from "react";
 
+export enum ModelEditOperation {
+  Insert = "insert",
+  Update = "update",
+  Delete = "delete",
+}
+
 export function ModelFormFields({ form, fields }) {
   return h(
     "div",
@@ -50,7 +56,7 @@ export function ModelEditor({
       .insert([values])
       .then((res) => {
         if (res.data == null) return;
-        onSuccess?.(res.data);
+        onSuccess?.(ModelEditOperation.Insert, res.data);
       });
   }, []);
 

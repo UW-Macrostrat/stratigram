@@ -7,8 +7,9 @@ import {
   Route,
   useNavigate,
 } from "react-router-dom";
+import { DeleteButton } from "@macrostrat/ui-components";
 import { ModelTableHeader, ModelButton } from "./header";
-import { ModelEditor } from "./edit-form";
+import { ModelEditor, ModelEditOperation } from "./edit-form";
 import { useAPIQuery } from "../data-service";
 
 export function LinkRow(props) {
@@ -29,7 +30,12 @@ export function BasicRow(props) {
   ]);
 }
 
-function ModelTableBody({ data, loading = false, rowComponent = BasicRow }) {
+function ModelTableBody({
+  data,
+  loading = false,
+  rowComponent = BasicRow,
+  onDelete = console.log,
+}) {
   if (loading) {
     return h(Table.Body, [h(Spinner)]);
   }
@@ -40,7 +46,11 @@ function ModelTableBody({ data, loading = false, rowComponent = BasicRow }) {
   return h(
     Table.Body,
     null,
-    data.map((row) => h(rowComponent, { data: row }))
+    data.map((row) =>
+      h(rowComponent, { data: row }, [
+        h(DeleteButton, { handleDelete: () => onDelete(row) }),
+      ])
+    )
   );
 }
 
@@ -89,12 +99,6 @@ export function ModelTable(props) {
   ]);
 }
 
-enum ModelEditOperation {
-  Insert = "insert",
-  Update = "update",
-  Delete = "delete",
-}
-
 interface ModelManagementProps<T extends string = string, D = any> {
   title: string;
   model: T;
@@ -127,13 +131,14 @@ export function ModelManagementPage(props: ModelManagementProps<string, any>) {
       h(Route, {
         path: "/new",
         element: h(ModelEditor, {
+          operation: ModelEditOperation.Insert,
           rootRoute,
           title,
           model,
           fields: editorFields,
           initialValues,
-          onSuccess(data) {
-            onUpdate(ModelEditOperation.Insert, data);
+          onSuccess(op, data) {
+            onUpdate(op, data);
             nav(rootRoute + "/");
           },
           ...rest,

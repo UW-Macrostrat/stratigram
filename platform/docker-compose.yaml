@@ -38,6 +38,8 @@ services:
       - 5000
     ports:
       - "5005:5000"
+    depends_on:
+      - database
     environment:
       - ANON_KEY
       - SERVICE_KEY

@@ -18,8 +18,8 @@ import { Box } from "@mantine/core";
 import { TextInput, Textarea } from "@mantine/core";
 import { ArrowRightIcon } from "evergreen-ui";
 
-function ProjectRow({ data }) {
-  return h(LinkRow, { to: `/project/${data.id}`, data });
+function ProjectRow({ data, children }) {
+  return h(LinkRow, { to: `/project/${data.id}`, data, children });
 }
 
 const baseEditorFields = [
@@ -31,6 +31,7 @@ function ProjectManagementPage() {
   return h(ModelManagementPage, {
     model: "project",
     title: "Projects",
+    rootRoute: "/projects",
     rowComponent: ProjectRow,
     editorFields: [...baseEditorFields],
     initialValues: {
@@ -40,10 +41,11 @@ function ProjectManagementPage() {
   });
 }
 
-function ColumnRow({ data }) {
+function ColumnRow({ data, children }) {
   return h(LinkRow, {
     to: `/columns/${data.id}`,
     data,
+    children,
   });
 }
 
