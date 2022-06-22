@@ -1,4 +1,4 @@
-import h from "@macrostrat/hyper";
+import hyper from "@macrostrat/hyper";
 import { Table, PlusIcon, Spinner } from "evergreen-ui";
 import {
   useLinkClickHandler,
@@ -11,6 +11,9 @@ import { DeleteButton } from "@macrostrat/ui-components";
 import { ModelTableHeader, ModelButton } from "./header";
 import { ModelEditor, ModelEditOperation } from "./edit-form";
 import { useAPIQuery } from "../data-service";
+import style from "./main.styl";
+
+const h = hyper.styled(style);
 
 export function LinkRow(props) {
   const { to, ...rest } = props;
@@ -48,7 +51,13 @@ function ModelTableBody({
     null,
     data.map((row) =>
       h(rowComponent, { data: row }, [
-        h(DeleteButton, { handleDelete: () => onDelete(row) }),
+        h("div.row-actions", [
+          h(DeleteButton, {
+            minimal: true,
+            large: true,
+            handleDelete: () => onDelete(row),
+          }),
+        ]),
       ])
     )
   );

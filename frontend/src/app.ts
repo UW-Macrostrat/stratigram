@@ -79,7 +79,7 @@ function ColumnsListPage() {
         refresh();
       },
     }),
-    h("p", null, h(Link, { to: "users" }, "Manage project users")),
+    //h("p", null, h(Link, { to: "users" }, "Manage project users")),
   ]);
 }
 
