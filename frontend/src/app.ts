@@ -17,6 +17,8 @@ import {
 import { Box } from "@mantine/core";
 import { TextInput, Textarea } from "@mantine/core";
 import { ArrowRightIcon } from "evergreen-ui";
+import { ColumnPage } from "./pages";
+//import AboutText from "./about.mdx";
 
 function ProjectRow({ data, children }) {
   return h(LinkRow, { to: `/project/${data.id}`, data, children });
@@ -88,10 +90,6 @@ function ManageUsersPage() {
   return h(ExampleUsersTable);
 }
 
-function ColumnPage() {
-  return h("div.column-page", [h("h1", "Column")]);
-}
-
 function ProjectTable(props) {
   const { data: projects } = useAPIQuery("project", (q) => q.select("*"), []);
   if (projects == null) return null;
@@ -115,10 +113,7 @@ function ProjectTable(props) {
 }
 
 function IntroPage() {
-  return h("div.intro-page", [
-    h("p", "Stratigram helps capture stratigraphic columns"),
-    h(ProjectTable),
-  ]);
+  return h("div.intro-page", [h(ProjectTable)]);
 }
 
 function App() {

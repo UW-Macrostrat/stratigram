@@ -42,7 +42,7 @@ const cssModuleLoader = {
 
 const plugins = [
   new HtmlWebpackPlugin({
-    title: "Stratiform",
+    title: "Stratigram",
   }),
   new EnvironmentPlugin({
     ...gitEnv,
@@ -55,7 +55,6 @@ const plugins = [
 const styleLoaders = ["style-loader", cssModuleLoader];
 
 module.exports = {
-  cache: false,
   mode,
   devServer: {
     compress: true,
