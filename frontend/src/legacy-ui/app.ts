@@ -10,7 +10,6 @@ import { StatefulComponent } from "@macrostrat/ui-components";
 
 import { StratColumn } from "./column";
 import { SettingsPanel } from "./settings";
-import { SideMenu } from "./nav";
 import { Page } from "./enum";
 import { Panel } from "./ui";
 
@@ -68,9 +67,8 @@ class App extends StatefulComponent {
       editingInterval = null;
     }
 
-    return h("div.app", [
-      h("div.main", [
-        h(SideMenu, { setPage: this.setPage, currentPage }),
+    return h("div.column-main", [
+      h("div.cs-main", [
         h(StratColumn, {
           surfaces,
           height,

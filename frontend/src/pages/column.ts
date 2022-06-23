@@ -3,6 +3,7 @@ import { App } from "~/legacy-ui/app";
 import { StorageUI, WidePage, LabeledValue } from "~/components";
 import { Link, useParams, Route, Routes } from "react-router-dom";
 import { useAPIQuery } from "~/data-service";
+import { SidebarButton } from "~/components/buttons";
 
 export function ColumnPage(props) {
   const { column_id } = useParams();
@@ -23,13 +24,37 @@ export function ColumnPage(props) {
   const { project, id, name } = datum;
 
   const sidebarContent = h([
-    h("h2.subtitle", name),
-    h(ProjectLink, { data: project }),
+    h("div.main-info", [
+      h("h2.subtitle", name),
+      h(ProjectLink, { data: project }),
+    ]),
+    h("div.column-links", [
+      h(SidebarButton, { to: `/columns/${id}`, icon: "edit" }, "Edit"),
+      h(
+        SidebarButton,
+        {
+          to: `settings`,
+          icon: "settings",
+        },
+        "Settings"
+      ),
+      h(
+        SidebarButton,
+        {
+          to: `images`,
+          icon: "media",
+        },
+        "Images"
+      ),
+    ]),
   ]);
 
   return h(WidePage, { className: "column-page", sidebarContent }, [
     h(Routes, [
-      h(Route, { path: "/images", element: h(ColumnImagesUI, { column_id }) }),
+      h(Route, {
+        path: "/images",
+        element: h(ColumnImagesUI, { column_id }),
+      }),
       h(Route, { path: "/", element: h(App), exact: true }),
     ]),
   ]); //, //h(App)]);

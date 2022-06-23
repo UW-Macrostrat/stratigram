@@ -133,7 +133,7 @@ function App() {
         path: "/project/:project_id/users",
         element: h(ManageUsersPage),
       }),
-      h(Route, { path: "/columns/:column_id", element: h(ColumnPage) }),
+      h(Route, { path: "/columns/:column_id*", element: h(ColumnPage) }),
       h(Route, { index: true, element: h(IntroPage) }),
     ]),
     h("footer"),
