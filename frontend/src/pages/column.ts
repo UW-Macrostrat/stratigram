@@ -1,6 +1,6 @@
 import h from "@macrostrat/hyper";
 import { App } from "~/legacy-ui/app";
-import { StorageUI, WidePage } from "~/components";
+import { StorageUI, WidePage, LabeledValue } from "~/components";
 import { Link, useParams, Route, Routes } from "react-router-dom";
 import { useAPIQuery } from "~/data-service";
 
@@ -14,12 +14,16 @@ export function ColumnPage(props) {
     []
   );
 
-  const { project, id } = data?.[0];
+  const datum = data?.[0];
 
-  console.log(data);
+  if (datum == null) {
+    return null;
+  }
+
+  const { project, id } = datum;
 
   const sidebarContent = h("div.link-list", [
-    h(Link, { to: `/project/${column_id}` }, "Projects"),
+    h(ProjectLink, { data: project }),
   ]);
 
   return h(WidePage, { className: "column-page", sidebarContent }, [
@@ -36,5 +40,9 @@ function ColumnImagesUI({ column_id }) {
 
 function ProjectLink({ data }) {
   const { id, name } = data;
-  return h(Link, { to: `/project/${id}` });
+  return h(
+    Link,
+    { to: `/project/${id}` },
+    h(LabeledValue, { label: "Project" }, name)
+  );
 }

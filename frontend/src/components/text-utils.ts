@@ -1,4 +1,4 @@
-import h from "@macrostrat/hyper";
+import h from "~/hyper";
 
 export function LabeledValue({ label, children }) {
   return h("span.labeled-value", [

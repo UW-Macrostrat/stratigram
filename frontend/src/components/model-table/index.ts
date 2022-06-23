@@ -1,4 +1,4 @@
-import hyper from "@macrostrat/hyper";
+import h from "~/hyper";
 import { Table, PlusIcon, Spinner } from "evergreen-ui";
 import {
   useLinkClickHandler,
@@ -16,9 +16,6 @@ import {
   PostgrestQueryBuilder,
   PostgrestFilterBuilder,
 } from "@supabase/postgrest-js";
-import style from "./main.styl";
-
-const h = hyper.styled(style);
 
 export function LinkRow(props) {
   const { to, ...rest } = props;
