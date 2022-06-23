@@ -30,16 +30,14 @@ services:
       - PGRST_DB_ANON_ROLE=postgres
       - PGRST_JWT_SECRET
     depends_on:
+      gateway:
+        condition: service_started
       database:
         condition: service_healthy
   storage_api:
     build: ./storage_api
     expose:
       - 5000
-    ports:
-      - "5005:5000"
-    depends_on:
-      - database
     environment:
       - ANON_KEY
       - SERVICE_KEY
@@ -60,14 +58,14 @@ services:
     depends_on:
       database:
         condition: service_healthy
+      gateway:
+        condition: service_started
   storage:
     # https://github.com/minio/minio/blob/master/docs/docker/README.md
     image: minio/minio:latest
     command: server /data --address 0.0.0.0:9000 --console-address :9001 --config-dir /etc/minio
     volumes:
       - ./data:/data
-    ports:
-      - 9001:9001
     expose:
       - 9000
     networks:
