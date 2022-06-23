@@ -1,10 +1,7 @@
-import hyper, { classed } from "@macrostrat/hyper";
+import h, { classed } from "~/hyper";
 import { Box } from "@mantine/core";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
-import styles from "./main.styl";
-
-const h = hyper.styled(styles);
 
 export function FocusPage({ children, className }) {
   return h(

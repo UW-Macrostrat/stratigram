@@ -66,6 +66,11 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\/hyper\.ts$/,
+        include: /src/,
+        use: [babelLoader, "webpack-glob-loader"],
+      },
+      {
         test: /\.(js|jsx|ts|tsx)$/,
         use: [babelLoader],
         exclude: /node_modules/,
