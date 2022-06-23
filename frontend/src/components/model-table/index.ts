@@ -10,7 +10,12 @@ import {
 import { DeleteButton } from "@macrostrat/ui-components";
 import { ModelTableHeader, ModelButton } from "./header";
 import { ModelEditor, ModelEditOperation } from "./edit-form";
-import { useAPIQuery } from "../data-service";
+import { useAPIQuery } from "../../data-service";
+import { FocusPage } from "~/components/page-layouts";
+import {
+  PostgrestQueryBuilder,
+  PostgrestFilterBuilder,
+} from "@supabase/postgrest-js";
 import style from "./main.styl";
 
 const h = hyper.styled(style);
@@ -115,10 +120,18 @@ interface ModelManagementProps<T extends string = string, D = any> {
   editorFields: React.ReactNode[];
   initialValues: { [key: string]: any };
   rowComponent?: React.ComponentType<{ data: D }>;
+  data?: D[];
+  selector?: (q: PostgrestQueryBuilder<D>) => PostgrestFilterBuilder<D>;
   onUpdate?(operation: ModelEditOperation, data?: D[]);
 }
 
 export function ModelManagementPage(props: ModelManagementProps<string, any>) {
+  return h(FocusPage, null, h(ModelManagementInterface, props));
+}
+
+export function ModelManagementInterface(
+  props: ModelManagementProps<string, any>
+) {
   const {
     rootRoute = "/",
     title,

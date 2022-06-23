@@ -13,11 +13,12 @@ import {
   LinkRow,
   ModelManagementPage,
   ModelButton,
-} from "./model-table";
-import { Box } from "@mantine/core";
+  ModelManagementInterface,
+} from "./components/model-table";
 import { TextInput, Textarea } from "@mantine/core";
 import { ArrowRightIcon } from "evergreen-ui";
 import { ColumnPage } from "./pages";
+import { FocusPage } from "~/components/page-layouts";
 //import AboutText from "./about.mdx";
 
 function ProjectRow({ data, children }) {
@@ -57,19 +58,20 @@ function ColumnsListPage() {
   const { project_id } = useParams();
   const { data, refresh } = useAPIQuery<"project", ColumnListData>(
     "project",
-    (q) => q.select("name, column(id, name)"),
+    (q) => q.select("name, column(id, name)").filter("id", "eq", project_id),
     []
   );
   const project = data?.[0];
   if (project == null) return null;
   const { column, name } = project;
 
-  return h("div.columns-page", [
+  return h(FocusPage, [
     h("h1", name),
-    h(ModelManagementPage, {
+    h(ModelManagementInterface, {
       title: "Columns",
       rowComponent: ColumnRow,
       model: "column",
+      selector: (q) => q.select("*").filter("project_id", "eq", project_id),
       rootRoute: `/project/${project_id}`,
       editorFields: [...baseEditorFields],
       initialValues: {
@@ -113,34 +115,29 @@ function ProjectTable(props) {
 }
 
 function IntroPage() {
-  return h("div.intro-page", [h(ProjectTable)]);
+  return h(FocusPage, { className: "intro-page" }, h(ProjectTable));
 }
 
 function App() {
-  const { data: projects } = useAPIQuery("project", (q) => q.select("*"), []);
-
   return h("div.app", [
-    h(Box, { padding: "xlarge", sx: { maxWidth: 600 }, mx: "auto" }, [
-      h(Router, [
-        h("header", [h("h1", null, h(Link, { to: "/" }, "Stratigram"))]),
-        h(Routes, [
-          h(Route, {
-            path: "/projects*",
-            element: h(ProjectManagementPage),
-          }),
-          h(Route, {
-            path: "/project/:project_id/*",
-            element: h(ColumnsListPage),
-          }),
-          h(Route, {
-            path: "/project/:project_id/users",
-            element: h(ManageUsersPage),
-          }),
-          h(Route, { path: "/columns/:column_id", element: h(ColumnPage) }),
-          h(Route, { index: true, element: h(IntroPage) }),
-        ]),
-        h("footer"),
+    h(Router, [
+      h(Routes, [
+        h(Route, {
+          path: "/projects*",
+          element: h(ProjectManagementPage),
+        }),
+        h(Route, {
+          path: "/project/:project_id/*",
+          element: h(ColumnsListPage),
+        }),
+        h(Route, {
+          path: "/project/:project_id/users",
+          element: h(ManageUsersPage),
+        }),
+        h(Route, { path: "/columns/:column_id", element: h(ColumnPage) }),
+        h(Route, { index: true, element: h(IntroPage) }),
       ]),
+      h("footer"),
     ]),
   ]);
 }
