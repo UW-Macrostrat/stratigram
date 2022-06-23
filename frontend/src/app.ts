@@ -119,26 +119,24 @@ function IntroPage() {
 }
 
 function App() {
-  return h("div.app", [
-    h(Router, [
-      h(Routes, [
-        h(Route, {
-          path: "/projects*",
-          element: h(ProjectManagementPage),
-        }),
-        h(Route, {
-          path: "/project/:project_id/*",
-          element: h(ColumnsListPage),
-        }),
-        h(Route, {
-          path: "/project/:project_id/users",
-          element: h(ManageUsersPage),
-        }),
-        h(Route, { path: "/columns/:column_id", element: h(ColumnPage) }),
-        h(Route, { index: true, element: h(IntroPage) }),
-      ]),
-      h("footer"),
+  return h(Router, [
+    h(Routes, [
+      h(Route, {
+        path: "/projects*",
+        element: h(ProjectManagementPage),
+      }),
+      h(Route, {
+        path: "/project/:project_id/*",
+        element: h(ColumnsListPage),
+      }),
+      h(Route, {
+        path: "/project/:project_id/users",
+        element: h(ManageUsersPage),
+      }),
+      h(Route, { path: "/columns/:column_id", element: h(ColumnPage) }),
+      h(Route, { index: true, element: h(IntroPage) }),
     ]),
+    h("footer"),
   ]);
 }
 

@@ -20,9 +20,10 @@ export function ColumnPage(props) {
     return null;
   }
 
-  const { project, id } = datum;
+  const { project, id, name } = datum;
 
-  const sidebarContent = h("div.link-list", [
+  const sidebarContent = h([
+    h("h2.subtitle", name),
     h(ProjectLink, { data: project }),
   ]);
 
