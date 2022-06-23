@@ -11,7 +11,7 @@ import { StatefulComponent } from "@macrostrat/ui-components";
 import { StratColumn } from "./column";
 import { SettingsPanel } from "./settings";
 import { Page } from "./enum";
-import { Panel } from "./ui";
+import { Panel } from "../components/ui-panel";
 
 import defaultColumnData from "~/example-data/Naukluft-Section-J.json";
 import testImage from "~/example-data/Naukluft-Section-J.png";

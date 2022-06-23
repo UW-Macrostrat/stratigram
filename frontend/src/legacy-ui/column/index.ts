@@ -1,5 +1,6 @@
 import { Component, useContext } from "react";
 import { IntervalEditor } from "./editor";
+import { IntervalEditorOld } from "./editor-old";
 import {
   SVG,
   ColumnAxis,
@@ -220,7 +221,12 @@ const __StratOuter = function (props) {
   return h(
     GeologicPatternProvider,
     { resolvePattern },
-    h(FaciesProvider, { initialFacies: defaultFacies }, [h(StratColumn, props)])
+    h(
+      "div.column-editor",
+      h(FaciesProvider, { initialFacies: defaultFacies }, [
+        h(StratColumn, props),
+      ])
+    )
   );
 };
 

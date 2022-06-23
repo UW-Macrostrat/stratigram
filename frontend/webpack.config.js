@@ -120,7 +120,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".jsx"],
+    extensions: [".ts", ".tsx", ".js", ".jsx", ".styl"],
     alias: {
       react: require.resolve("react"),
       "~": path.resolve(__dirname, "src"),

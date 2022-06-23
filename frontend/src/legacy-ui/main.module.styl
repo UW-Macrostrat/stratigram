@@ -1,5 +1,4 @@
 @require './column/editor-styles'
-@require './ui/main'
 
 *
   box-sizing border-box
@@ -24,5 +23,9 @@ body, html
 .column-container
   position relative
 
-:global(.note-label)
+:global(.col-note-label)
   font-size 10px
+
+.column-editor
+  display: flex
+  flex-direction row

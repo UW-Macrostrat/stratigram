@@ -6,7 +6,7 @@
  */
 import { useModelEditor } from "@macrostrat/column-components";
 import h from "~/hyper";
-import { ContentPanel } from "../ui";
+import { ContentPanel } from "../../components/ui-panel";
 import { TextArea } from "@blueprintjs/core";
 import { format } from "d3-format";
 import { DeleteButton } from "@macrostrat/ui-components";

@@ -15,7 +15,7 @@ import {
   grainSizes,
 } from "@macrostrat/column-components";
 
-import { Panel } from "~/legacy-ui/ui";
+import { Panel } from "~/components/ui-panel";
 import h from "~/hyper";
 
 const fmt = format(".1f");
@@ -202,4 +202,4 @@ class IntervalEditor extends Component {
 }
 IntervalEditor.initClass();
 
-export { IntervalEditor };
+export { IntervalEditor as IntervalEditorOld };
