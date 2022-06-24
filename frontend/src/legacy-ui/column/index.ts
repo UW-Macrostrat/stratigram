@@ -1,6 +1,5 @@
 import { Component, useContext } from "react";
 import { IntervalEditor } from "./editor";
-import { IntervalEditorOld } from "./editor-old";
 import {
   SVG,
   ColumnAxis,

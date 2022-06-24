@@ -3,7 +3,7 @@ import h from "./main.styl";
 import { useCallback } from "react";
 import { ModelTable } from "../../../components/model-table";
 import { Table } from "evergreen-ui";
-import { StorageManagerProvider, useStorageManager } from "~/system/storage";
+import { StorageManagerProvider, useStorageManager } from "~/system";
 
 function ImageUploader({ className = null }) {
   const { client, refresh, acceptedMimeTypes } = useStorageManager();
