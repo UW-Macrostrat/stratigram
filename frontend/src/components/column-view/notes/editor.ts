@@ -5,11 +5,12 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import { useModelEditor } from "@macrostrat/column-components";
-import h from "./main.module.styl";
-import { ContentPanel } from "../ui-panel";
+import h from "../main.module.styl";
+import { ContentPanel } from "../../ui-panel";
 import { TextArea } from "@blueprintjs/core";
 import { format } from "d3-format";
-import { DeleteButton } from "@macrostrat/ui-components";
+import { DeleteButton, SaveButton } from "@macrostrat/ui-components";
+import { useClickOutside } from "@mantine/hooks";
 
 const fmt = format(".2f");
 

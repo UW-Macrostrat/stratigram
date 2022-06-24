@@ -4,7 +4,7 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import h from "~/hyper";
+import h from "./main.styl";
 import { Button } from "@blueprintjs/core";
 
 const PanelHeader = function (props) {

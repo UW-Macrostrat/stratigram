@@ -1,7 +1,7 @@
 import { NotesColumn } from "@macrostrat/column-components";
 import h from "~/hyper";
 import { useAPIQuery, APISchema, apiClient } from "~/system";
-import { NoteEditor } from "../note-editor";
+import { NoteEditor } from "./editor";
 import { useState, useEffect } from "react";
 
 type Note = APISchema["column_obs"];
@@ -23,6 +23,9 @@ export function ColumnNotesManager({ column_id, offset, width }) {
   );
 
   async function onUpdateNote(newNote: Note) {
+    // For some reason, the current editor doesn't have a good
+    // sense of inserts versus updates.
+    if (newNote.id == null) return onCreateNote(newNote);
     try {
       let res = await client.update(newNote).match({ id: newNote.id });
       let inserted = res.body[0];
@@ -43,6 +46,17 @@ export function ColumnNotesManager({ column_id, offset, width }) {
     }
   }
 
+  async function onCreateNote(note: Note) {
+    note = { ...note, column_id };
+    try {
+      let res = await client.insert(note);
+      let inserted = res.body[0];
+      setNotes((notes) => [...notes, inserted]);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   useEffect(() => {
     if (data) {
       setNotes(data);
@@ -55,6 +69,7 @@ export function ColumnNotesManager({ column_id, offset, width }) {
     width,
     onUpdateNote,
     onDeleteNote,
+    onCreateNote,
     noteEditor: NoteEditor,
     allowPositionEditing: true,
   });

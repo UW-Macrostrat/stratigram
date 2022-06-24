@@ -23,7 +23,7 @@ import {
 import h from "~/hyper";
 import T from "prop-types";
 import defaultFacies from "./default-facies.json";
-import { NoteEditor } from "./note-editor";
+import { NoteEditor } from "./notes/editor";
 import { ColumnNotesManager } from "./notes";
 import { animateScroll as scroll } from "react-scroll";
 const patterns = {};
