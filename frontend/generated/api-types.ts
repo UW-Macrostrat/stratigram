@@ -115,6 +115,12 @@ export interface paths {
     get: {
       parameters: {
         query: {
+          id?: parameters["rowFilter.column_obs.id"];
+          height?: parameters["rowFilter.column_obs.height"];
+          top_height?: parameters["rowFilter.column_obs.top_height"];
+          column_id?: parameters["rowFilter.column_obs.column_id"];
+          note?: parameters["rowFilter.column_obs.note"];
+          symbol?: parameters["rowFilter.column_obs.symbol"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -164,6 +170,14 @@ export interface paths {
     };
     delete: {
       parameters: {
+        query: {
+          id?: parameters["rowFilter.column_obs.id"];
+          height?: parameters["rowFilter.column_obs.height"];
+          top_height?: parameters["rowFilter.column_obs.top_height"];
+          column_id?: parameters["rowFilter.column_obs.column_id"];
+          note?: parameters["rowFilter.column_obs.note"];
+          symbol?: parameters["rowFilter.column_obs.symbol"];
+        };
         header: {
           /** Preference */
           Prefer?: parameters["preferReturn"];
@@ -176,6 +190,14 @@ export interface paths {
     };
     patch: {
       parameters: {
+        query: {
+          id?: parameters["rowFilter.column_obs.id"];
+          height?: parameters["rowFilter.column_obs.height"];
+          top_height?: parameters["rowFilter.column_obs.top_height"];
+          column_id?: parameters["rowFilter.column_obs.column_id"];
+          note?: parameters["rowFilter.column_obs.note"];
+          symbol?: parameters["rowFilter.column_obs.symbol"];
+        };
         body: {
           /** column_obs */
           column_obs?: definitions["column_obs"];
@@ -197,9 +219,12 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.column_surface.id"];
           height?: parameters["rowFilter.column_surface.height"];
+          top_height?: parameters["rowFilter.column_surface.top_height"];
           column_id?: parameters["rowFilter.column_surface.column_id"];
           lithology_id?: parameters["rowFilter.column_surface.lithology_id"];
+          lithology_name?: parameters["rowFilter.column_surface.lithology_name"];
           facies_id?: parameters["rowFilter.column_surface.facies_id"];
+          facies_name?: parameters["rowFilter.column_surface.facies_name"];
           grainsize?: parameters["rowFilter.column_surface.grainsize"];
           covered?: parameters["rowFilter.column_surface.covered"];
           schematic?: parameters["rowFilter.column_surface.schematic"];
@@ -236,6 +261,11 @@ export interface paths {
     get: {
       parameters: {
         query: {
+          id?: parameters["rowFilter.facies.id"];
+          model_id?: parameters["rowFilter.facies.model_id"];
+          name?: parameters["rowFilter.facies.name"];
+          description?: parameters["rowFilter.facies.description"];
+          color?: parameters["rowFilter.facies.color"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -285,6 +315,13 @@ export interface paths {
     };
     delete: {
       parameters: {
+        query: {
+          id?: parameters["rowFilter.facies.id"];
+          model_id?: parameters["rowFilter.facies.model_id"];
+          name?: parameters["rowFilter.facies.name"];
+          description?: parameters["rowFilter.facies.description"];
+          color?: parameters["rowFilter.facies.color"];
+        };
         header: {
           /** Preference */
           Prefer?: parameters["preferReturn"];
@@ -297,6 +334,13 @@ export interface paths {
     };
     patch: {
       parameters: {
+        query: {
+          id?: parameters["rowFilter.facies.id"];
+          model_id?: parameters["rowFilter.facies.model_id"];
+          name?: parameters["rowFilter.facies.name"];
+          description?: parameters["rowFilter.facies.description"];
+          color?: parameters["rowFilter.facies.color"];
+        };
         body: {
           /** facies */
           facies?: definitions["facies"];
@@ -316,6 +360,10 @@ export interface paths {
     get: {
       parameters: {
         query: {
+          id?: parameters["rowFilter.facies_model.id"];
+          project_id?: parameters["rowFilter.facies_model.project_id"];
+          name?: parameters["rowFilter.facies_model.name"];
+          description?: parameters["rowFilter.facies_model.description"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -365,6 +413,12 @@ export interface paths {
     };
     delete: {
       parameters: {
+        query: {
+          id?: parameters["rowFilter.facies_model.id"];
+          project_id?: parameters["rowFilter.facies_model.project_id"];
+          name?: parameters["rowFilter.facies_model.name"];
+          description?: parameters["rowFilter.facies_model.description"];
+        };
         header: {
           /** Preference */
           Prefer?: parameters["preferReturn"];
@@ -377,6 +431,12 @@ export interface paths {
     };
     patch: {
       parameters: {
+        query: {
+          id?: parameters["rowFilter.facies_model.id"];
+          project_id?: parameters["rowFilter.facies_model.project_id"];
+          name?: parameters["rowFilter.facies_model.name"];
+          description?: parameters["rowFilter.facies_model.description"];
+        };
         body: {
           /** facies_model */
           facies_model?: definitions["facies_model"];
@@ -396,6 +456,9 @@ export interface paths {
     get: {
       parameters: {
         query: {
+          key?: parameters["rowFilter.grainsize.key"];
+          name?: parameters["rowFilter.grainsize.name"];
+          description?: parameters["rowFilter.grainsize.description"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -445,6 +508,11 @@ export interface paths {
     };
     delete: {
       parameters: {
+        query: {
+          key?: parameters["rowFilter.grainsize.key"];
+          name?: parameters["rowFilter.grainsize.name"];
+          description?: parameters["rowFilter.grainsize.description"];
+        };
         header: {
           /** Preference */
           Prefer?: parameters["preferReturn"];
@@ -457,6 +525,11 @@ export interface paths {
     };
     patch: {
       parameters: {
+        query: {
+          key?: parameters["rowFilter.grainsize.key"];
+          name?: parameters["rowFilter.grainsize.name"];
+          description?: parameters["rowFilter.grainsize.description"];
+        };
         body: {
           /** grainsize */
           grainsize?: definitions["grainsize"];
@@ -476,6 +549,11 @@ export interface paths {
     get: {
       parameters: {
         query: {
+          id?: parameters["rowFilter.lithology.id"];
+          name?: parameters["rowFilter.lithology.name"];
+          project_id?: parameters["rowFilter.lithology.project_id"];
+          description?: parameters["rowFilter.lithology.description"];
+          pattern?: parameters["rowFilter.lithology.pattern"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -525,6 +603,13 @@ export interface paths {
     };
     delete: {
       parameters: {
+        query: {
+          id?: parameters["rowFilter.lithology.id"];
+          name?: parameters["rowFilter.lithology.name"];
+          project_id?: parameters["rowFilter.lithology.project_id"];
+          description?: parameters["rowFilter.lithology.description"];
+          pattern?: parameters["rowFilter.lithology.pattern"];
+        };
         header: {
           /** Preference */
           Prefer?: parameters["preferReturn"];
@@ -537,6 +622,13 @@ export interface paths {
     };
     patch: {
       parameters: {
+        query: {
+          id?: parameters["rowFilter.lithology.id"];
+          name?: parameters["rowFilter.lithology.name"];
+          project_id?: parameters["rowFilter.lithology.project_id"];
+          description?: parameters["rowFilter.lithology.description"];
+          pattern?: parameters["rowFilter.lithology.pattern"];
+        };
         body: {
           /** lithology */
           lithology?: definitions["lithology"];
@@ -668,7 +760,28 @@ export interface definitions {
     /** Format: public.geometry(Geometry,4326) */
     geometry?: string;
   };
-  column_obs: { [key: string]: unknown };
+  column_obs: {
+    /**
+     * Format: integer
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    id?: number;
+    /** Format: numeric */
+    height?: number;
+    /** Format: numeric */
+    top_height?: number;
+    /**
+     * Format: integer
+     * @description Note:
+     * This is a Foreign Key to `column.id`.<fk table='column' column='id'/>
+     */
+    column_id?: number;
+    /** Format: text */
+    note?: string;
+    /** Format: text */
+    symbol?: string;
+  };
   column_surface: {
     /**
      * Format: integer
@@ -678,17 +791,31 @@ export interface definitions {
     id?: number;
     /** Format: numeric */
     height?: number;
+    /** Format: numeric */
+    top_height?: number;
     /**
      * Format: integer
      * @description Note:
      * This is a Foreign Key to `column.id`.<fk table='column' column='id'/>
      */
     column_id?: number;
-    /** Format: integer */
+    /**
+     * Format: integer
+     * @description Note:
+     * This is a Foreign Key to `lithology.id`.<fk table='lithology' column='id'/>
+     */
     lithology_id?: number;
+    /** Format: text */
+    lithology_name?: string;
     /** Format: integer */
     facies_id?: number;
     /** Format: text */
+    facies_name?: string;
+    /**
+     * Format: text
+     * @description Note:
+     * This is a Foreign Key to `grainsize.key`.<fk table='grainsize' column='key'/>
+     */
     grainsize?: string;
     /** Format: boolean */
     covered?: boolean;
@@ -697,10 +824,76 @@ export interface definitions {
     /** Format: text */
     surface_type?: string;
   };
-  facies: { [key: string]: unknown };
-  facies_model: { [key: string]: unknown };
-  grainsize: { [key: string]: unknown };
-  lithology: { [key: string]: unknown };
+  facies: {
+    /**
+     * Format: integer
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    id?: number;
+    /**
+     * Format: integer
+     * @description Note:
+     * This is a Foreign Key to `facies_model.id`.<fk table='facies_model' column='id'/>
+     */
+    model_id?: number;
+    /** Format: text */
+    name?: string;
+    /** Format: text */
+    description?: string;
+    /** Format: text */
+    color?: string;
+  };
+  facies_model: {
+    /**
+     * Format: integer
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    id?: number;
+    /**
+     * Format: integer
+     * @description Note:
+     * This is a Foreign Key to `project.id`.<fk table='project' column='id'/>
+     */
+    project_id?: number;
+    /** Format: text */
+    name?: string;
+    /** Format: text */
+    description?: string;
+  };
+  grainsize: {
+    /**
+     * Format: text
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    key?: string;
+    /** Format: text */
+    name?: string;
+    /** Format: text */
+    description?: string;
+  };
+  lithology: {
+    /**
+     * Format: integer
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    id?: number;
+    /** Format: text */
+    name?: string;
+    /**
+     * Format: integer
+     * @description Note:
+     * This is a Foreign Key to `project.id`.<fk table='project' column='id'/>
+     */
+    project_id?: number;
+    /** Format: text */
+    description?: string;
+    /** Format: text */
+    pattern?: string;
+  };
   project: {
     /**
      * Format: integer
@@ -762,18 +955,36 @@ export interface parameters {
   "rowFilter.column.geometry": string;
   /** @description column_obs */
   "body.column_obs": definitions["column_obs"];
+  /** Format: integer */
+  "rowFilter.column_obs.id": string;
+  /** Format: numeric */
+  "rowFilter.column_obs.height": string;
+  /** Format: numeric */
+  "rowFilter.column_obs.top_height": string;
+  /** Format: integer */
+  "rowFilter.column_obs.column_id": string;
+  /** Format: text */
+  "rowFilter.column_obs.note": string;
+  /** Format: text */
+  "rowFilter.column_obs.symbol": string;
   /** @description column_surface */
   "body.column_surface": definitions["column_surface"];
   /** Format: integer */
   "rowFilter.column_surface.id": string;
   /** Format: numeric */
   "rowFilter.column_surface.height": string;
+  /** Format: numeric */
+  "rowFilter.column_surface.top_height": string;
   /** Format: integer */
   "rowFilter.column_surface.column_id": string;
   /** Format: integer */
   "rowFilter.column_surface.lithology_id": string;
+  /** Format: text */
+  "rowFilter.column_surface.lithology_name": string;
   /** Format: integer */
   "rowFilter.column_surface.facies_id": string;
+  /** Format: text */
+  "rowFilter.column_surface.facies_name": string;
   /** Format: text */
   "rowFilter.column_surface.grainsize": string;
   /** Format: boolean */
@@ -784,12 +995,46 @@ export interface parameters {
   "rowFilter.column_surface.surface_type": string;
   /** @description facies */
   "body.facies": definitions["facies"];
+  /** Format: integer */
+  "rowFilter.facies.id": string;
+  /** Format: integer */
+  "rowFilter.facies.model_id": string;
+  /** Format: text */
+  "rowFilter.facies.name": string;
+  /** Format: text */
+  "rowFilter.facies.description": string;
+  /** Format: text */
+  "rowFilter.facies.color": string;
   /** @description facies_model */
   "body.facies_model": definitions["facies_model"];
+  /** Format: integer */
+  "rowFilter.facies_model.id": string;
+  /** Format: integer */
+  "rowFilter.facies_model.project_id": string;
+  /** Format: text */
+  "rowFilter.facies_model.name": string;
+  /** Format: text */
+  "rowFilter.facies_model.description": string;
   /** @description grainsize */
   "body.grainsize": definitions["grainsize"];
+  /** Format: text */
+  "rowFilter.grainsize.key": string;
+  /** Format: text */
+  "rowFilter.grainsize.name": string;
+  /** Format: text */
+  "rowFilter.grainsize.description": string;
   /** @description lithology */
   "body.lithology": definitions["lithology"];
+  /** Format: integer */
+  "rowFilter.lithology.id": string;
+  /** Format: text */
+  "rowFilter.lithology.name": string;
+  /** Format: integer */
+  "rowFilter.lithology.project_id": string;
+  /** Format: text */
+  "rowFilter.lithology.description": string;
+  /** Format: text */
+  "rowFilter.lithology.pattern": string;
   /** @description project */
   "body.project": definitions["project"];
   /** Format: integer */

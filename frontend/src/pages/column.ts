@@ -1,5 +1,5 @@
 import h from "@macrostrat/hyper";
-import { App } from "~/components/column-view";
+import { ColumnView } from "~/components/column-view";
 import { StorageUI, WidePage, LabeledValue } from "~/components";
 import { Link, useParams, Route, Routes } from "react-router-dom";
 import { useAPIQuery } from "~/system/data-service";
@@ -55,7 +55,7 @@ export function ColumnPage(props) {
         path: "/images",
         element: h(ColumnImagesUI, { column_id }),
       }),
-      h(Route, { path: "/", element: h(App), exact: true }),
+      h(Route, { path: "/", element: h(ColumnView), exact: true }),
     ]),
   ]); //, //h(App)]);
 }

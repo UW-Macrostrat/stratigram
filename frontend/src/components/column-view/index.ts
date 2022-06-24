@@ -21,7 +21,7 @@ const createID = () => "_" + Math.random().toString(36).substr(2, 9);
 const AboutPanel = (props) =>
   h(Panel, { title: "About", ...props }, [h("div", "This is an app")]);
 
-class App extends StatefulComponent {
+class ColumnView extends StatefulComponent {
   constructor(props) {
     super(props);
     this.updateColumnData = this.updateColumnData.bind(this);
@@ -259,4 +259,4 @@ class App extends StatefulComponent {
   }
 }
 
-export { App };
+export { ColumnView };

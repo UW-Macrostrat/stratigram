@@ -8,6 +8,8 @@ import { definitions } from "../../generated/api-types";
 
 const apiClient = new PostgrestClient(process.env.API_URL);
 
+type APISchema = definitions;
+
 function useAPIQuery<T extends keyof definitions, Data = definitions[T]>(
   relation: T,
   builder: (
@@ -45,4 +47,4 @@ function useAPIQuery<T extends keyof definitions, Data = definitions[T]>(
   return { data, error, loading, refresh };
 }
 
-export { apiClient, useAPIQuery };
+export { apiClient, useAPIQuery, APISchema };

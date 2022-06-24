@@ -44,6 +44,7 @@ def up():
     compose("up", "--build", "-d")
 
     compose("exec gateway nginx -s reload")
+    compose("kill -s SIGUSR1 api")
     compose("restart storage_api")
 
     follow_logs()
@@ -104,7 +105,8 @@ def sync():
     for fn in files:
         db.exec_sql(fn)
 
-    db.session.execute("NOTIFY pgrst, 'reload config'")
+    # Reload API schema cache
+    compose("kill -s SIGUSR1 api")
 
     # We need to restart the storage API to pick up configuration changes
     compose("restart storage_api")
