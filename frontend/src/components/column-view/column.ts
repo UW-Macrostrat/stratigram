@@ -24,6 +24,7 @@ import h from "~/hyper";
 import T from "prop-types";
 import defaultFacies from "./default-facies.json";
 import { NoteEditor } from "./note-editor";
+import { ColumnNotesManager } from "./notes";
 import { animateScroll as scroll } from "react-scroll";
 const patterns = {};
 const assetPaths = {};
@@ -181,14 +182,10 @@ class StratColumn extends Component {
                   h(ColumnAxis),
                   h(GrainsizeAxis),
                   // Notes column
-                  h.if(this.shouldShowNotes())(NotesColumn, {
-                    notes,
-                    transform: `translate(${notesOffset})`,
+                  h.if(this.shouldShowNotes())(ColumnNotesManager, {
+                    column_id: 2,
+                    offset: notesOffset,
                     width: notesWidth,
-                    onUpdateNote: this.props.onUpdateNote,
-                    onDeleteNote: this.props.onDeleteNote,
-                    noteEditor: NoteEditor,
-                    allowPositionEditing: true,
                   }),
                 ]
               ),
