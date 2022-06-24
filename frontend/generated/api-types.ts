@@ -111,6 +111,86 @@ export interface paths {
       };
     };
   };
+  "/column_obs": {
+    get: {
+      parameters: {
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["column_obs"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** column_obs */
+          column_obs?: definitions["column_obs"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        body: {
+          /** column_obs */
+          column_obs?: definitions["column_obs"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
   "/column_surface": {
     get: {
       parameters: {
@@ -151,11 +231,43 @@ export interface paths {
         206: unknown;
       };
     };
+  };
+  "/facies": {
+    get: {
+      parameters: {
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["facies"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
     post: {
       parameters: {
         body: {
-          /** column_surface */
-          column_surface?: definitions["column_surface"];
+          /** facies */
+          facies?: definitions["facies"];
         };
         query: {
           /** Filtering Columns */
@@ -173,17 +285,6 @@ export interface paths {
     };
     delete: {
       parameters: {
-        query: {
-          id?: parameters["rowFilter.column_surface.id"];
-          height?: parameters["rowFilter.column_surface.height"];
-          column_id?: parameters["rowFilter.column_surface.column_id"];
-          lithology_id?: parameters["rowFilter.column_surface.lithology_id"];
-          facies_id?: parameters["rowFilter.column_surface.facies_id"];
-          grainsize?: parameters["rowFilter.column_surface.grainsize"];
-          covered?: parameters["rowFilter.column_surface.covered"];
-          schematic?: parameters["rowFilter.column_surface.schematic"];
-          surface_type?: parameters["rowFilter.column_surface.surface_type"];
-        };
         header: {
           /** Preference */
           Prefer?: parameters["preferReturn"];
@@ -196,20 +297,249 @@ export interface paths {
     };
     patch: {
       parameters: {
-        query: {
-          id?: parameters["rowFilter.column_surface.id"];
-          height?: parameters["rowFilter.column_surface.height"];
-          column_id?: parameters["rowFilter.column_surface.column_id"];
-          lithology_id?: parameters["rowFilter.column_surface.lithology_id"];
-          facies_id?: parameters["rowFilter.column_surface.facies_id"];
-          grainsize?: parameters["rowFilter.column_surface.grainsize"];
-          covered?: parameters["rowFilter.column_surface.covered"];
-          schematic?: parameters["rowFilter.column_surface.schematic"];
-          surface_type?: parameters["rowFilter.column_surface.surface_type"];
-        };
         body: {
-          /** column_surface */
-          column_surface?: definitions["column_surface"];
+          /** facies */
+          facies?: definitions["facies"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/facies_model": {
+    get: {
+      parameters: {
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["facies_model"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** facies_model */
+          facies_model?: definitions["facies_model"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        body: {
+          /** facies_model */
+          facies_model?: definitions["facies_model"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/grainsize": {
+    get: {
+      parameters: {
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["grainsize"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** grainsize */
+          grainsize?: definitions["grainsize"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        body: {
+          /** grainsize */
+          grainsize?: definitions["grainsize"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/lithology": {
+    get: {
+      parameters: {
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["lithology"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** lithology */
+          lithology?: definitions["lithology"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        body: {
+          /** lithology */
+          lithology?: definitions["lithology"];
         };
         header: {
           /** Preference */
@@ -338,6 +668,7 @@ export interface definitions {
     /** Format: public.geometry(Geometry,4326) */
     geometry?: string;
   };
+  column_obs: { [key: string]: unknown };
   column_surface: {
     /**
      * Format: integer
@@ -366,6 +697,10 @@ export interface definitions {
     /** Format: text */
     surface_type?: string;
   };
+  facies: { [key: string]: unknown };
+  facies_model: { [key: string]: unknown };
+  grainsize: { [key: string]: unknown };
+  lithology: { [key: string]: unknown };
   project: {
     /**
      * Format: integer
@@ -425,6 +760,8 @@ export interface parameters {
   "rowFilter.column.description": string;
   /** Format: public.geometry(Geometry,4326) */
   "rowFilter.column.geometry": string;
+  /** @description column_obs */
+  "body.column_obs": definitions["column_obs"];
   /** @description column_surface */
   "body.column_surface": definitions["column_surface"];
   /** Format: integer */
@@ -445,6 +782,14 @@ export interface parameters {
   "rowFilter.column_surface.schematic": string;
   /** Format: text */
   "rowFilter.column_surface.surface_type": string;
+  /** @description facies */
+  "body.facies": definitions["facies"];
+  /** @description facies_model */
+  "body.facies_model": definitions["facies_model"];
+  /** @description grainsize */
+  "body.grainsize": definitions["grainsize"];
+  /** @description lithology */
+  "body.lithology": definitions["lithology"];
   /** @description project */
   "body.project": definitions["project"];
   /** Format: integer */
