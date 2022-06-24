@@ -52,9 +52,14 @@ const plugins = [
   }),
 ];
 
-const styleLoaders = ["style-loader", cssModuleLoader];
+const styleLoaders = [
+  "@macrostrat/hyperstyle-loader",
+  "style-loader",
+  cssModuleLoader,
+];
 
 module.exports = {
+  cache: false,
   mode,
   devServer: {
     compress: true,

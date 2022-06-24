@@ -4,6 +4,8 @@ import { useAsyncEffect, DeleteButton } from "@macrostrat/ui-components";
 import h from "@macrostrat/hyper";
 import { StorageClient, FileObject } from "@supabase/storage-js";
 import { useState, createContext, useContext, useCallback } from "react";
+import { ModelTable } from "./model-table";
+import { Table } from "evergreen-ui";
 
 const storageURL = process.env.STORAGE_URL;
 const storageToken = process.env.STORAGE_TOKEN;
@@ -38,7 +40,10 @@ function ImageUploader() {
       multiple: false,
     },
     (status: DropzoneStatus) => {
-      return h("p", null, "Drop an image here");
+      return h("div.file-picker-status", [
+        h("p", null, "Drop an image here"),
+        h("p.subtext", null, "(or click to select a file)"),
+      ]);
     }
   );
 }
@@ -77,35 +82,39 @@ function Image({ image }) {
   return h("img", { width: 200, src: image.publicURL });
 }
 
-function ImageFileManager({ image }) {
-  const { client, refresh } = useContext(FileManagerContext);
-  return h("div", [
-    h(Image, { image }),
-    h(DeleteButton, {
-      itemDescription: "this photo",
-      handleDelete: () => {
-        client.remove([image.name]).then((res) => {
-          refresh();
-        });
-      },
-    }),
+function ImageFileRow({ data, children }) {
+  return h(
+    Table.Row,
+    {
+      className: "image-file-row",
+    },
+    [
+      h(Table.TextCell, {}, data.name),
+      h(Table.Cell, h(Image, { image: data })),
+      children,
+    ]
+  );
+}
+
+function ImageUploadRow() {
+  return h(Table.Row, { className: "image-upload-row" }, [
+    h(Table.Cell, h(ImageUploader)),
   ]);
+}
+
+function ImageTableBody({ children }) {
+  return h(Table.Body, [h(ImageUploadRow), children]);
 }
 
 function ImageList({ images }: { images: ImageData[] }) {
   if (images == null) return null;
 
-  return h(
-    Group,
-    {
-      direction: "row",
-      justify: "center",
-      align: "center",
-    },
-    images.map((image) => {
-      return h(ImageFileManager, { image });
-    })
-  );
+  return h(ModelTable, {
+    data: images,
+    rowComponent: ImageFileRow,
+    bodyComponent: ImageTableBody,
+    title: "Images",
+  });
 }
 
 const FileManagerContext = createContext(null);

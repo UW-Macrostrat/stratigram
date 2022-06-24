@@ -20,8 +20,9 @@
   "prettier": {},
   "workspaces": [
     "./deps/ui-components",
-    "./deps/geologic-patterns/",
     "./deps/ui-components/packages/*",
+    "./deps/ui-components/toolchain/*",
+    "./deps/geologic-patterns/",
     "./frontend"
   ],
   "devDependencies": {

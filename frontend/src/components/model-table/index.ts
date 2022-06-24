@@ -28,9 +28,10 @@ export function LinkRow(props) {
 }
 
 export function BasicRow(props) {
-  const { data, children = null, ...rest } = props;
+  const { data, children = null, title = null, ...rest } = props;
+  const name = title ?? data?.name ?? data?.title;
   return h(Table.Row, rest, [
-    h(Table.TextCell, {}, data.name ?? data.title),
+    h.if(name != null)(Table.TextCell, {}, name),
     children,
   ]);
 }
@@ -39,6 +40,7 @@ function ModelTableBody({
   data,
   loading = false,
   rowComponent = BasicRow,
+  bodyComponent = Table.Body,
   onDelete = console.log,
 }) {
   if (loading) {
@@ -49,7 +51,7 @@ function ModelTableBody({
   }
 
   return h(
-    Table.Body,
+    bodyComponent,
     null,
     data.map((row) =>
       h(rowComponent, { data: row }, [
@@ -109,6 +111,8 @@ export function ModelTable(props) {
     h(ModelTableBody, rest),
   ]);
 }
+
+ModelTable.Row = BasicRow;
 
 interface ModelManagementProps<T extends string = string, D = any> {
   title: string;

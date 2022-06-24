@@ -12,7 +12,7 @@ import {
 import { Panel } from "~/components";
 import { DeleteButton } from "@macrostrat/ui-components";
 import { format } from "d3-format";
-import h from "~/hyper";
+import h from "./hyper.styl";
 
 import {
   FaciesContext,

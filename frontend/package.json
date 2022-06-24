@@ -39,6 +39,7 @@
     "@babel/preset-env": "^7.17.10",
     "@babel/preset-react": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",
+    "@macrostrat/hyperstyle-loader": "^0.1.0",
     "@macrostrat/revision-info-webpack": "^1.0.0",
     "@mdx-js/loader": "^2.1.2",
     "babel-loader": "^8.2.5",
