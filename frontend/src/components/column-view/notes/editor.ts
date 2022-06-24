@@ -9,7 +9,7 @@ import h from "../main.module.styl";
 import { ContentPanel } from "../../ui-panel";
 import { TextArea } from "@blueprintjs/core";
 import { format } from "d3-format";
-import { DeleteButton, SaveButton } from "@macrostrat/ui-components";
+import { DeleteButton } from "@macrostrat/ui-components";
 import { useClickOutside } from "@mantine/hooks";
 
 const fmt = format(".2f");

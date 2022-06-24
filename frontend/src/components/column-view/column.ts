@@ -23,7 +23,6 @@ import {
 import h from "~/hyper";
 import T from "prop-types";
 import defaultFacies from "./default-facies.json";
-import { NoteEditor } from "./notes/editor";
 import { ColumnNotesManager } from "./notes";
 import { animateScroll as scroll } from "react-scroll";
 const patterns = {};
@@ -60,154 +59,137 @@ const MainColumn = function ({ generalized, lithologyWidth: width, ...rest }) {
   return h(LithologyColumn, { width, ...rest });
 };
 
-class StratColumn extends Component {
-  constructor(...args) {
-    super(...args);
-    this.shouldShowNotes = this.shouldShowNotes.bind(this);
+//componentDidMount: =>
+//{margin} = @props
+//scroll.scrollTo(margin.top)
+
+function StratColumn(props) {
+  let {
+    margin = {
+      left: 30,
+      top: 30,
+      right: 10,
+      bottom: 30,
+    },
+    clickedHeight,
+    showFacies = false,
+    notes,
+    inEditMode,
+    generalized,
+    editingInterval,
+    height,
+    addInterval,
+    removeInterval,
+    editInterval,
+    onUpdate,
+    columnImage = null,
+    hideDetailColumn = false,
+    surfaces,
+  } = props;
+
+  const shouldShowNotes = editingInterval == null && !hideDetailColumn;
+
+  const lithologyWidth = 40;
+  const columnWidth = 212;
+  const grainsizeScaleStart = 132;
+  const notesWidth = 480;
+  const notesMargin = 30;
+  const editorMargin = 30;
+  const notesOffset = columnWidth + notesMargin;
+  let containerWidth = columnWidth;
+  const left = margin.left;
+
+  if (hideDetailColumn) {
+    editingInterval = null;
   }
 
-  static initClass() {
-    this.defaultProps = {
-      margin: {
-        left: 30,
-        top: 30,
-        right: 10,
-        bottom: 30,
-      },
-      showFacies: false,
-      hideDefaultColumn: false,
-      columnImage: null,
-    };
-    this.propTypes = {
-      inEditMode: T.bool.isRequired,
-      generalized: T.bool,
-      editingInterval: T.object,
-      surfaces: T.arrayOf(T.object).isRequired,
-      notes: T.arrayOf(T.object).isRequired,
-      editInterval: T.func.isRequired,
-      addInterval: T.func.isRequired,
-      height: T.number.isRequired,
-      hideDetailColumn: T.bool,
-      onUpdateNote: T.func.isRequired,
-      onDeleteNote: T.func.isRequired,
-      columnImage: T.string,
-    };
+  if (shouldShowNotes) {
+    containerWidth = notesOffset + notesWidth;
   }
 
-  shouldShowNotes() {
-    return this.props.editingInterval == null && !this.props.hideDetailColumn;
-  }
-
-  //componentDidMount: =>
-  //{margin} = @props
-  //scroll.scrollTo(margin.top)
-
-  render() {
-    let {
-      margin,
-      clickedHeight,
-      showFacies,
-      notes,
-      inEditMode,
-      generalized,
-      editingInterval,
-      height,
-      addInterval,
-      removeInterval,
-      editInterval,
-      onUpdate,
-      columnImage,
-    } = this.props;
-
-    const lithologyWidth = 40;
-    const columnWidth = 212;
-    const grainsizeScaleStart = 132;
-    const notesWidth = 480;
-    const notesMargin = 30;
-    const editorMargin = 30;
-    const notesOffset = columnWidth + notesMargin;
-    let containerWidth = columnWidth;
-
-    if (this.props.hideDetailColumn) {
-      editingInterval = null;
-    }
-
-    if (this.shouldShowNotes()) {
-      containerWidth = notesOffset + notesWidth;
-    }
-
-    return h(
-      ColumnProvider,
-      {
-        divisions: this.props.surfaces,
-        range: [0, height],
-        pixelsPerMeter: 20,
-      },
-      [
-        h("div.column-container", [
-          h(
-            GrainsizeLayoutProvider,
-            {
-              width: columnWidth,
-              grainsizeScaleStart,
-            },
-            [
-              h.if(!generalized && columnImage)(ColumnImage, {
-                left: this.props.margin.left + lithologyWidth,
-                top: this.props.margin.top,
-                src: columnImage,
-              }),
-              h.if(inEditMode)(DivisionEditOverlay, {
-                top: this.props.margin.top,
-                left: this.props.margin.left,
-                width: 200,
-                onClick: this.props.editInterval,
-                color: "dodgerblue",
-                editingInterval,
-              }),
-              h(
-                ColumnSVG,
-                {
-                  width: containerWidth,
-                  margin,
-                  style: { zIndex: 10, position: "relative" },
-                },
-                [
-                  h(MainColumn, { generalized, lithologyWidth }, [
-                    h.if(showFacies)(FaciesColumnInner),
-                    h(CoveredOverlay),
-                    h(LithologyBoxes),
-                  ]),
-                  h(SymbolColumn, { left: 90, symbols: [] }),
-                  h(ColumnAxis),
-                  h(GrainsizeAxis),
-                  // Notes column
-                  h.if(this.shouldShowNotes())(ColumnNotesManager, {
-                    column_id: 2,
-                    offset: notesOffset,
-                    width: notesWidth,
-                  }),
-                ]
-              ),
-            ]
-          ),
-        ]),
-        h.if(this.props.editingInterval)(IntervalEditor, {
-          interval: editingInterval,
-          height: clickedHeight,
-          closeDialog: () => {
-            return editInterval(null);
+  return h(
+    ColumnProvider,
+    {
+      divisions: surfaces,
+      range: [0, height],
+      pixelsPerMeter: 20,
+    },
+    [
+      h("div.column-container", [
+        h(
+          GrainsizeLayoutProvider,
+          {
+            width: columnWidth,
+            grainsizeScaleStart,
           },
-          addInterval,
-          removeInterval,
-          setEditingInterval: editInterval,
-          onUpdate,
-        }),
-      ]
-    );
-  }
+          [
+            h.if(!generalized && columnImage)(ColumnImage, {
+              left: left + lithologyWidth,
+              top: margin.top,
+              src: columnImage,
+            }),
+            h.if(inEditMode)(DivisionEditOverlay, {
+              top: margin.top,
+              left: margin.left,
+              width: 200,
+              onClick: editInterval,
+              color: "dodgerblue",
+              editingInterval,
+            }),
+            h(
+              ColumnSVG,
+              {
+                width: containerWidth,
+                margin,
+                style: { zIndex: 10, position: "relative" },
+              },
+              [
+                h(MainColumn, { generalized, lithologyWidth }, [
+                  h.if(showFacies)(FaciesColumnInner),
+                  h(CoveredOverlay),
+                  h(LithologyBoxes),
+                ]),
+                h(SymbolColumn, { left: 90, symbols: [] }),
+                h(ColumnAxis),
+                h(GrainsizeAxis),
+                // Notes column
+                h.if(shouldShowNotes)(ColumnNotesManager, {
+                  column_id: 2,
+                  offset: notesOffset,
+                  width: notesWidth,
+                }),
+              ]
+            ),
+          ]
+        ),
+      ]),
+      h.if(editingInterval)(IntervalEditor, {
+        interval: editingInterval,
+        height: clickedHeight,
+        closeDialog: () => {
+          return editInterval(null);
+        },
+        addInterval,
+        removeInterval,
+        setEditingInterval: editInterval,
+        onUpdate,
+      }),
+    ]
+  );
 }
-StratColumn.initClass();
+
+StratColumn.propTypes = {
+  inEditMode: T.bool.isRequired,
+  generalized: T.bool,
+  editingInterval: T.object,
+  surfaces: T.arrayOf(T.object).isRequired,
+  notes: T.arrayOf(T.object).isRequired,
+  editInterval: T.func.isRequired,
+  addInterval: T.func.isRequired,
+  height: T.number.isRequired,
+  hideDetailColumn: T.bool,
+  columnImage: T.string,
+};
 
 const resolvePattern = (id) => {
   return patterns[id];

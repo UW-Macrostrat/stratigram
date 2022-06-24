@@ -31,9 +31,6 @@ class ColumnView extends StatefulComponent {
     this.cancelEditInterval = this.cancelEditInterval.bind(this);
     this.addInterval = this.addInterval.bind(this);
     this.removeInterval = this.removeInterval.bind(this);
-    this.onUpdateNote = this.onUpdateNote.bind(this);
-    this.getNoteIndex = this.getNoteIndex.bind(this);
-    this.onDeleteNote = this.onDeleteNote.bind(this);
     this.setPage = this.setPage.bind(this);
     this.isChanged = this.isChanged.bind(this);
     this.resetDemoData = this.resetDemoData.bind(this);
@@ -83,8 +80,6 @@ class ColumnView extends StatefulComponent {
           onUpdate: this.updateInterval,
           hideDetailColumn: currentPage !== Page.MAIN,
           columnImage: this.state.columnImage,
-          onUpdateNote: this.onUpdateNote,
-          onDeleteNote: this.onDeleteNote,
         }),
         h.if(currentPage === Page.SETTINGS)(SettingsPanel, {
           inEditMode,
@@ -119,10 +114,6 @@ class ColumnView extends StatefulComponent {
     columnData.surfaces.sort((a, b) => a.bottom - b.bottom);
     const v = columnData.surfaces.map(this.prepareSurface(columnData.height));
     columnData.surfaces = v;
-
-    columnData.notes.forEach((d) =>
-      d.id != null ? d.id : (d.id = createID())
-    );
 
     return columnData;
   }
@@ -194,45 +185,6 @@ class ColumnView extends StatefulComponent {
   }
 
   removeInterval(id) {}
-
-  /* Note editing */
-  onUpdateNote(newNote) {
-    if (newNote == null) {
-      return;
-    }
-    if (newNote.note == null || newNote.note === "") {
-      return;
-    }
-    const { notes } = this.state.columnData;
-
-    if (newNote.id == null) {
-      newNote.id = createID();
-    }
-    // Updating note
-    const ix = this.getNoteIndex(newNote);
-
-    const isEmpty = newNote.note == null || newNote.note === "";
-
-    let spec = {};
-    if (ix !== -1) {
-      spec = { [ix]: { $set: newNote } };
-    } else if (!isEmpty) {
-      spec = { $push: [newNote] };
-    }
-
-    console.log("Updating notes with spec", spec);
-
-    return this.updateColumnData({ notes: spec });
-  }
-
-  getNoteIndex(note) {
-    return this.state.columnData.notes.findIndex((d) => d.id === note.id);
-  }
-
-  onDeleteNote(note) {
-    const ix = this.getNoteIndex(note);
-    return this.updateColumnData({ notes: { $splice: [[ix, 1]] } });
-  }
 
   setPage(nextPage) {
     return () => {
