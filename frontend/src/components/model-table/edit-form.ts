@@ -3,7 +3,7 @@ import h from "@macrostrat/hyper";
 import { TickIcon, CrossIcon } from "evergreen-ui";
 import { Group } from "@mantine/core";
 import { ModelTableHeader, ModelButton } from "./header";
-import { useAPIQuery, apiClient } from "../../data-service";
+import { useAPIQuery, apiClient } from "../../system/data-service";
 import { useCallback, useState } from "react";
 
 export enum ModelEditOperation {

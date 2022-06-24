@@ -10,7 +10,7 @@ import {
 import { DeleteButton } from "@macrostrat/ui-components";
 import { ModelTableHeader, ModelButton } from "./header";
 import { ModelEditor, ModelEditOperation } from "./edit-form";
-import { useAPIQuery } from "../../data-service";
+import { useAPIQuery } from "../../system/data-service";
 import { FocusPage } from "~/components/page-layouts";
 import {
   PostgrestQueryBuilder,

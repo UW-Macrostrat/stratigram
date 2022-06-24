@@ -4,7 +4,7 @@ import {
   PostgrestQueryBuilder,
 } from "@supabase/postgrest-js";
 import { useCallback, useState, useEffect } from "react";
-import { definitions } from "../generated/api-types";
+import { definitions } from "../../generated/api-types";
 
 const apiClient = new PostgrestClient(process.env.API_URL);
 

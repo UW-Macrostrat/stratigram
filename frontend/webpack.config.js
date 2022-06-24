@@ -59,7 +59,6 @@ const styleLoaders = [
 ];
 
 module.exports = {
-  cache: false,
   mode,
   devServer: {
     compress: true,

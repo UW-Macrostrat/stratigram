@@ -12,6 +12,14 @@
     "**/.hg": true,
     "**/CVS": true,
     "**/.DS_Store": true,
-    "**/Thumbs.db": true
+    "**/Thumbs.db": true,
+    "[!f]*/**": true,
+    "f[!r]*/**": true,
+    "fr[!o]*/**": true,
+    "fro[!n]*/**": true,
+    "fron[!t]*/**": true,
+    "front[!e]*/**": true,
+    "fronte[!n]*/**": true,
+    "fronten[!d]*/**": true
   }
 }
