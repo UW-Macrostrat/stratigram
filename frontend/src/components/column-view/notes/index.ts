@@ -25,9 +25,11 @@ export function ColumnNotesManager({ column_id, offset, width }) {
   async function onUpdateNote(newNote: Note) {
     // For some reason, the current editor doesn't have a good
     // sense of inserts versus updates.
-    if (newNote.id == null) return onCreateNote(newNote);
+    const { id, note } = newNote;
+    if (note == null || note == "") return;
+    if (id == null) return onCreateNote(newNote);
     try {
-      let res = await client.update(newNote).match({ id: newNote.id });
+      let res = await client.update(newNote).match({ id });
       let inserted = res.body[0];
       setNotes((notes) =>
         notes.map((n) => (n.id === inserted.id ? inserted : n))

@@ -23,6 +23,11 @@ body, html
 .column-container
   position relative
 
+// Temporary, helps with dark reader on firefox.
+html[data-darkreader-scheme="dark"]
+  .column-container img
+      filter: invert(90%)
+
 :global(.col-note-label)
   font-size 10px
 
