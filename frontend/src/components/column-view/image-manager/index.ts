@@ -1,7 +1,7 @@
 import { Dropzone, DropzoneStatus } from "@mantine/dropzone";
 import h from "./main.styl";
 import { useCallback } from "react";
-import { ModelTable } from "../../../components/model-table";
+import { ModelTable } from "../../model-table";
 import { Table } from "evergreen-ui";
 import { StorageManagerProvider, useStorageManager } from "~/system";
 

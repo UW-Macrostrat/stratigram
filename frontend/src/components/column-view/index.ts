@@ -5,13 +5,13 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import h from "~/hyper";
+import h from "./main.module.styl";
 import { StatefulComponent } from "@macrostrat/ui-components";
 
 import { StratColumn } from "./column";
-import { SettingsPanel } from "./settings";
-import { Page } from "./enum";
-import { Panel } from "../components/ui-panel";
+import { SettingsPanel } from "../../legacy-ui/settings";
+import { Page } from "../../legacy-ui/enum";
+import { Panel } from "../ui-panel";
 
 import defaultColumnData from "~/example-data/Naukluft-Section-J.json";
 import testImage from "~/example-data/Naukluft-Section-J.png";

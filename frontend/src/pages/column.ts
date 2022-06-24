@@ -1,5 +1,5 @@
 import h from "@macrostrat/hyper";
-import { App } from "~/legacy-ui/app";
+import { App } from "~/components/column-view";
 import { StorageUI, WidePage, LabeledValue } from "~/components";
 import { Link, useParams, Route, Routes } from "react-router-dom";
 import { useAPIQuery } from "~/system/data-service";
