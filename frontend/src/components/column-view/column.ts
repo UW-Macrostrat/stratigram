@@ -109,10 +109,23 @@ function StratColumnView(props) {
     containerWidth = notesOffset + notesWidth;
   }
 
+  const divisions = surfaces.map((s) => {
+    /** Pre-process strat names */
+    const { height, top_height, lithology_name, ...rest } = s;
+    const lithology = lithology_name.toLowerCase();
+    return {
+      ...rest,
+      lithology,
+      pattern: lithology,
+      bottom: height,
+      top: top_height,
+    };
+  });
+
   return h(
     ColumnProvider,
     {
-      divisions: surfaces,
+      divisions,
       range: [0, height],
       pixelsPerMeter: 20,
     },
@@ -199,8 +212,6 @@ function StratColumn(props) {
   });
 
   if (surfaces == null) return h(Spinner);
-
-  console.log(surfaces);
 
   return h(StratColumnView, { ...props, surfaces });
 }
