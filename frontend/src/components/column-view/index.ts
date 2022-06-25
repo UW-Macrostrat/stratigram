@@ -11,6 +11,14 @@ import { useState } from "react";
 import { StratColumn } from "./column";
 import { useAPIQuery } from "~/system";
 import { Spinner } from "@blueprintjs/core";
+import { useStorageManager } from "~/system";
+
+function useColumnImage(column_id) {
+  // For now, we only work with a single image
+  const bucket = `column-${column_id}-images`;
+  const { files } = useStorageManager(bucket);
+  return files?.[0]?.publicURL;
+}
 
 import testImage from "~/example-data/Naukluft-Section-J.png";
 
@@ -25,8 +33,10 @@ function ColumnView({ column_id }) {
   });
 
   const { data: surfaces, refresh } = useAPIQuery("column_surface", (q) => {
-    return q.select("*").filter("column_id", "eq", 2);
+    return q.select("*").filter("column_id", "eq", column_id);
   });
+
+  const columnImage = useColumnImage(column_id);
 
   if (surfaces == null) return h(Spinner);
 
@@ -50,7 +60,7 @@ function ColumnView({ column_id }) {
         editingInterval,
         clickedHeight,
         hideDetailColumn: false,
-        columnImage: state.columnImage,
+        columnImage,
       }),
     ]),
   ]);

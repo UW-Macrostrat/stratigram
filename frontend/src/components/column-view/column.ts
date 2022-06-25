@@ -74,6 +74,7 @@ function StratColumnView(props) {
       right: 10,
       bottom: 30,
     },
+    column_id,
     clickedHeight,
     showFacies = false,
     inEditMode,
@@ -156,7 +157,7 @@ function StratColumnView(props) {
                 h(GrainsizeAxis),
                 // Notes column
                 h.if(shouldShowNotes)(ColumnNotesManager, {
-                  column_id: 2,
+                  column_id,
                   offset: notesOffset,
                   width: notesWidth,
                 }),

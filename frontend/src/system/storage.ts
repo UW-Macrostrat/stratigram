@@ -19,23 +19,21 @@ export function StorageManagerProvider({
   acceptedMimeTypes = IMAGE_MIME_TYPE,
   children,
 }) {
-  let client = storageClient.from(bucketName);
-  const [files, refresh] = useFileList(client);
-  return h(
-    StorageManagementContext.Provider,
-    { value: { bucketName, files, refresh, client, acceptedMimeTypes } },
-    children
-  );
+  const value = useStorageCtx(bucketName, { acceptedMimeTypes });
+  return h(StorageManagementContext.Provider, { value }, children);
 }
 
 type FileListData = FileObject & { publicURL: string };
 
-interface StorageManagementCtx {
+interface StorageManagementOpts {
+  acceptedMimeTypes: string[];
+}
+
+interface StorageManagementCtx extends StorageManagementOpts {
   bucketName: string;
   files: FileListData[];
   refresh: () => void;
   client: StorageFileApi;
-  acceptedMimeTypes: string[];
 }
 
 const StorageManagementContext = createContext<StorageManagementCtx>(null);
@@ -65,7 +63,21 @@ function useFileList(client): [FileListData[], () => void] {
   return [files, refresh];
 }
 
-export function useStorageManager(): StorageManagementCtx | null {
+function useStorageCtx(
+  bucketName: string,
+  opts: StorageManagementOpts = { acceptedMimeTypes: IMAGE_MIME_TYPE }
+) {
+  let client = storageClient.from(bucketName);
+  const [files, refresh] = useFileList(client);
+  return { bucketName, files, refresh, client, ...opts };
+}
+
+export function useStorageManager(
+  bucketName?: string
+): StorageManagementCtx | null {
+  if (bucketName != null) {
+    return useStorageCtx(bucketName);
+  }
   return useContext(StorageManagementContext);
 }
 
