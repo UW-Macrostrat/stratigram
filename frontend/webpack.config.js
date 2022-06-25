@@ -130,6 +130,7 @@ module.exports = {
       "~": path.resolve(__dirname, "src"),
       "@macrostrat/column-components": packageSrc("column-components"),
       "@macrostrat/ui-components": packageSrc("ui-components"),
+      "@macrostrat/ui-components/src": packageSrc("ui-components"),
     },
   },
   entry: {
