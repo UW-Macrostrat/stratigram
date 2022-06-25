@@ -24,7 +24,10 @@ import h from "~/hyper";
 import T from "prop-types";
 import defaultFacies from "./default-facies.json";
 import { ColumnNotesManager } from "./notes";
+import { useAPIQuery, APISchema, apiClient } from "~/system";
+
 import { animateScroll as scroll } from "react-scroll";
+import { Spinner } from "@blueprintjs/core";
 const patterns = {};
 const assetPaths = {};
 
@@ -63,7 +66,7 @@ const MainColumn = function ({ generalized, lithologyWidth: width, ...rest }) {
 //{margin} = @props
 //scroll.scrollTo(margin.top)
 
-function StratColumn(props) {
+function StratColumnView(props) {
   let {
     margin = {
       left: 30,
@@ -73,7 +76,6 @@ function StratColumn(props) {
     },
     clickedHeight,
     showFacies = false,
-    notes,
     inEditMode,
     generalized,
     editingInterval,
@@ -178,7 +180,7 @@ function StratColumn(props) {
   );
 }
 
-StratColumn.propTypes = {
+StratColumnView.propTypes = {
   inEditMode: T.bool.isRequired,
   generalized: T.bool,
   editingInterval: T.object,
@@ -190,6 +192,18 @@ StratColumn.propTypes = {
   hideDetailColumn: T.bool,
   columnImage: T.string,
 };
+
+function StratColumn(props) {
+  const { data: surfaces, refresh } = useAPIQuery("column_surface", (q) => {
+    return q.select("*").filter("column_id", "eq", 2);
+  });
+
+  if (surfaces == null) return h(Spinner);
+
+  console.log(surfaces);
+
+  return h(StratColumnView, { ...props, surfaces });
+}
 
 const resolvePattern = (id) => {
   return patterns[id];

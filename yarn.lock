@@ -3509,7 +3509,7 @@ __metadata:
 
 "@macrostrat/column-components@file:./packages/column-components::locator=%40macrostrat%2Fui-components-monorepo%40workspace%3Adeps%2Fui-components":
   version: 0.8.3
-  resolution: "@macrostrat/column-components@file:./packages/column-components#./packages/column-components::hash=213731&locator=%40macrostrat%2Fui-components-monorepo%40workspace%3Adeps%2Fui-components"
+  resolution: "@macrostrat/column-components@file:./packages/column-components#./packages/column-components::hash=829bed&locator=%40macrostrat%2Fui-components-monorepo%40workspace%3Adeps%2Fui-components"
   dependencies:
     "@macrostrat/hyper": ^2.1.0
     chroma-js: ^2.1.0
@@ -3538,7 +3538,7 @@ __metadata:
     "@macrostrat/ui-components": ^1.0.0
     react: ^16.12.0||^17.0.0
     react-dom: ^16.12.0||^17.0.0
-  checksum: 22069488f58d9556b069a8de45994047aff8c99b1b62cecdc9efc4d2696badcbce47f9b44390c0a1759998a08b08933400079bc4ef2303fb1867c7bdb09a651d
+  checksum: 51483b0812e6aafeb006475aa7a694c1db0f25119ea27089e8438107299d5748364780f3e0402b355d3af6839b9a80cbee28fb0a38e6867e42214906adb8d4a8
   languageName: node
   linkType: hard
 
@@ -3694,7 +3694,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@macrostrat/hyper@npm:^2.0.1, @macrostrat/hyper@npm:^2.1.0, @macrostrat/hyper@npm:^2.1.1, @macrostrat/hyper@npm:^2.1.4":
+"@macrostrat/hyper@npm:^2.0.1, @macrostrat/hyper@npm:^2.1.0, @macrostrat/hyper@npm:^2.1.1":
   version: 2.1.4
   resolution: "@macrostrat/hyper@npm:2.1.4"
   dependencies:
@@ -3703,6 +3703,18 @@ __metadata:
     "@types/react": ">= 16.0.0 < 19.0.0"
     react: ">= 0.12.0 < 19.0.0"
   checksum: 5c2893d726fa9906dee56443e5eaa76226deeb2d36c40bb71bae5be387fe04186f85d1535f5ff949a74f514eb65e96809cdae0fb55a4d4d39a0fa8aa0d95833b
+  languageName: node
+  linkType: hard
+
+"@macrostrat/hyper@npm:^2.2.1":
+  version: 2.2.1
+  resolution: "@macrostrat/hyper@npm:2.2.1"
+  dependencies:
+    classnames: ^2.3.1
+  peerDependencies:
+    "@types/react": ">= 16.0.0 < 19.0.0"
+    react: ">= 0.12.0 < 19.0.0"
+  checksum: 30c1fba5e5343f4dd643713c72dc2a843a43cfe8ab8962c30ae81d659800378f680c0ef9f612ce686e71f16ac973faa5af1a3fbcf68480105768cbe84651431b
   languageName: node
   linkType: hard
 
@@ -3834,7 +3846,7 @@ __metadata:
     "@babel/preset-react": ^7.16.7
     "@babel/preset-typescript": ^7.16.7
     "@blueprintjs/core": ^4.3.0
-    "@macrostrat/hyper": ^2.1.4
+    "@macrostrat/hyper": ^2.2.1
     "@macrostrat/hyperstyle-loader": ^0.1.0
     "@macrostrat/revision-info-webpack": ^1.0.0
     "@mantine/core": ^4.2.7

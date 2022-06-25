@@ -13,7 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "@blueprintjs/core": "^4.3.0",
-    "@macrostrat/hyper": "^2.1.4",
+    "@macrostrat/hyper": "^2.2.1",
     "@mantine/core": "^4.2.7",
     "@mantine/dropzone": "^4.2.6",
     "@mantine/form": "^4.2.7",
