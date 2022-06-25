@@ -74,6 +74,7 @@ function StratColumnView(props) {
       right: 10,
       bottom: 30,
     },
+    pixelsPerMeter = 20,
     column_id,
     clickedHeight,
     showFacies = false,
@@ -88,9 +89,12 @@ function StratColumnView(props) {
     columnImage = null,
     hideDetailColumn = false,
     surfaces,
+    imageInsets = {},
+    clipImage,
   } = props;
 
   const shouldShowNotes = editingInterval == null && !hideDetailColumn;
+  console.log(imageInsets);
 
   const lithologyWidth = 40;
   const columnWidth = 212;
@@ -115,7 +119,7 @@ function StratColumnView(props) {
     {
       divisions: surfaces,
       range: [0, height],
-      pixelsPerMeter: 20,
+      pixelsPerMeter,
     },
     [
       h("div.column-container", [
@@ -130,6 +134,8 @@ function StratColumnView(props) {
               left: left + lithologyWidth,
               top: margin.top,
               src: columnImage,
+              insets: imageInsets,
+              clip: clipImage,
             }),
             h.if(inEditMode)(DivisionEditOverlay, {
               top: margin.top,

@@ -20,11 +20,8 @@ function useColumnImage(column_id) {
   return files?.[0]?.publicURL;
 }
 
-import testImage from "~/example-data/Naukluft-Section-J.png";
-
 function ColumnView({ column_id }) {
   const [state, updateState] = useState({
-    columnImage: testImage,
     inEditMode: true,
     showFacies: true,
     generalized: false,
@@ -46,11 +43,13 @@ function ColumnView({ column_id }) {
     editingInterval = null;
   }
 
+  // Temporary store of view params
+  const colData = columnViewIx[column_id];
+
   return h("div.column-main", [
     h("div.cs-main", [
       h(StratColumn, {
         column_id,
-        height: 60,
         generalized,
         inEditMode,
         editInterval: () => {},
@@ -61,9 +60,36 @@ function ColumnView({ column_id }) {
         clickedHeight,
         hideDetailColumn: false,
         columnImage,
+        ...colData,
       }),
     ]),
   ]);
 }
+
+interface ColumnViewData {
+  height: number;
+  startHeight?: number;
+  margin: { [key: string]: number };
+  pixelsPerMeter?: number;
+  imageInsets?: { [key: string]: number };
+}
+
+const columnViewIx: { [key: number]: ColumnViewData } = {
+  2: {
+    height: 60,
+    margin: { left: 30, top: 30, right: 10, bottom: 30 },
+  },
+  70: {
+    height: 341.3,
+    margin: { left: 30, top: 30, right: 10, bottom: 30 },
+    pixelsPerMeter: 4,
+    imageInsets: {
+      left: 67,
+      top: 85,
+      right: 280,
+      bottom: 135,
+    },
+  },
+};
 
 export { ColumnView };
