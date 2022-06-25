@@ -217,7 +217,9 @@ function StratColumn(props) {
 }
 
 const resolvePattern = (id) => {
-  return patterns[id];
+  const vizBaseURL = "https://visualization-assets.s3.amazonaws.com";
+  const patternBaseURL = vizBaseURL + "/geologic-patterns/png";
+  return `${patternBaseURL}/${id}.png`;
 };
 
 const __StratOuter = function (props) {

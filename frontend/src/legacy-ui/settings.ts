@@ -6,7 +6,6 @@
  */
 import h from "~/hyper";
 import { Switch, Button } from "@blueprintjs/core";
-import { Component } from "react";
 import { Panel } from "~/components/ui-panel";
 
 const Control = ({ title, children }) =>
