@@ -2,12 +2,12 @@ from datetime import datetime, timedelta
 from os import environ
 from sys import stdout
 
+from pathlib import Path
 from dotenv import load_dotenv
 from macrostrat.database import Database
 from macrostrat.database.utils import wait_for_database
 from macrostrat.utils import cmd, relative_path, working_directory
 from typer import Typer
-from subprocess import Popen
 from requests import post
 from rich import print
 from requests.exceptions import HTTPError
@@ -50,12 +50,9 @@ def up():
     follow_logs()
 
 
-@app.command(name="import-test-data")
-def import_test_data():
-    test_data_dir = root / "test-data" / "Zebra-Nappe-Section-J"
-    db = Database(db_url)
+def add_test_data(db: Database, project_name: str, column_name: str, proj_dir: Path):
 
-    files = list(test_data_dir.glob("*.sql"))
+    files = list(proj_dir.glob("*.sql"))
     files.sort()
     for fn in files:
         db.exec_sql(fn)
@@ -63,15 +60,18 @@ def import_test_data():
     sql = """SELECT b.name FROM storage.buckets b
 JOIN stratiform.column c ON b.column_id = c.id
 JOIN stratiform.project p ON c.project_id = p.id
-WHERE c.name = 'Section J'
-AND p.name = 'Zebra Nappe'"""
+WHERE c.name = :column_name AND p.name = :project_name"""
 
-    bucket_name = db.session.execute(sql).scalar()
+    print(project_name, column_name)
+
+    bucket_name = db.session.execute(
+        sql, params=dict(column_name=column_name, project_name=project_name)
+    ).scalar()
     print(bucket_name)
 
     images = []
     for pattern in ["*.jpg", "*.png"]:
-        images.extend(list(test_data_dir.glob(pattern)))
+        images.extend(list(proj_dir.glob(pattern)))
 
     for image in images:
         mimetype = mime_type(image.name)
@@ -89,10 +89,16 @@ AND p.name = 'Zebra Nappe'"""
         except HTTPError as err:
             print(err)
 
-    # files = {"upload_file": open("file.txt", "rb")}
-    # values = {"DB": "photcat", "OUT": "csv", "SHORT": "short"}
-    # url = api_url+"/api/v1/upload"
-    # r = requests.post(url, files=files, data=values)
+
+@app.command(name="import-test-data")
+def import_test_data():
+    db = Database(db_url)
+
+    test_data_dir = root / "test-data" / "Zebra-Nappe-Section-J"
+    add_test_data(db, "Zebra Nappe", "Section J", test_data_dir)
+
+    test_data_dir = root / "test-data" / "Moynihan-2019"
+    add_test_data(db, "Windermere Supergroup", "Section G3", test_data_dir)
 
 
 @app.command()

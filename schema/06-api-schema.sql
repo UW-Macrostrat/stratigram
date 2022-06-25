@@ -26,17 +26,18 @@ SELECT * FROM stratiform.grainsize;
 CREATE VIEW stratiform_api.column_surface AS
 SELECT
   s.id,
-  height bottom_height,
+  height bottom,
   lead(height, 1) OVER (
     PARTITION BY column_id
     ORDER BY
       height
-  ) top_height,
+  ) top,
   column_id,
   lithology_id,
-  l."name" lithology_name,
   facies_id,
-  f."name" facies_name,
+  l."name" lithology,
+  f."name" facies,
+  l.pattern,
   grainsize,
   covered,
   schematic,

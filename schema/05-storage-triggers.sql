@@ -4,11 +4,12 @@ DECLARE bucket_name text;
 BEGIN
   bucket_name := 'column-' || NEW.id || '-images';
   -- Insert a new bucket for section images
-  INSERT INTO storage.buckets (id, name, column_id)
+  INSERT INTO storage.buckets (id, name, column_id, public)
   SELECT
     bucket_name,
     bucket_name,
-    NEW.id
+    NEW.id,
+    TRUE
   WHERE NOT EXISTS (SELECT 1 FROM storage.buckets WHERE id = bucket_name);
   RETURN NEW;
 END $$ LANGUAGE plpgsql;
@@ -19,10 +20,11 @@ AFTER INSERT ON stratiform.column
 FOR EACH ROW EXECUTE PROCEDURE stratiform.column_insert_trigger();
 
 -- Insert buckets for each column that doesn't currently have one.
-INSERT INTO storage.buckets (id, name, column_id)
+INSERT INTO storage.buckets (id, name, column_id, public)
 SELECT
   'column-' || id || '-images',
   'column-' || id || '-images',
-  id
+  id,
+  TRUE
 FROM stratiform.column
 WHERE id NOT IN (SELECT column_id FROM storage.buckets);
