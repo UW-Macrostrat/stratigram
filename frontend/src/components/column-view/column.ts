@@ -109,23 +109,10 @@ function StratColumnView(props) {
     containerWidth = notesOffset + notesWidth;
   }
 
-  const divisions = surfaces.map((s) => {
-    /** Pre-process strat names */
-    const { height, top_height, lithology_name, ...rest } = s;
-    const lithology = lithology_name.toLowerCase();
-    return {
-      ...rest,
-      lithology,
-      pattern: lithology,
-      bottom: height,
-      top: top_height,
-    };
-  });
-
   return h(
     ColumnProvider,
     {
-      divisions,
+      divisions: surfaces,
       range: [0, height],
       pixelsPerMeter: 20,
     },
@@ -206,16 +193,6 @@ StratColumnView.propTypes = {
   columnImage: T.string,
 };
 
-function StratColumn(props) {
-  const { data: surfaces, refresh } = useAPIQuery("column_surface", (q) => {
-    return q.select("*").filter("column_id", "eq", 2);
-  });
-
-  if (surfaces == null) return h(Spinner);
-
-  return h(StratColumnView, { ...props, surfaces });
-}
-
 const resolvePattern = (id) => {
   const vizBaseURL = "https://visualization-assets.s3.amazonaws.com";
   const patternBaseURL = vizBaseURL + "/geologic-patterns/png";
@@ -229,7 +206,7 @@ const __StratOuter = function (props) {
     h(
       "div.column-editor",
       h(FaciesProvider, { initialFacies: defaultFacies }, [
-        h(StratColumn, props),
+        h(StratColumnView, props),
       ])
     )
   );

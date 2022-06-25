@@ -39,7 +39,6 @@ CREATE TABLE IF NOT EXISTS stratiform.grainsize (
   description text
 );
 
-
 -- Columns
 CREATE TABLE IF NOT EXISTS stratiform.column (
   id serial PRIMARY KEY,

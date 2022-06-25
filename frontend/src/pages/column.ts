@@ -55,7 +55,11 @@ export function ColumnPage(props) {
         path: "/images",
         element: h(ColumnImagesUI, { column_id }),
       }),
-      h(Route, { path: "/", element: h(ColumnView), exact: true }),
+      h(Route, {
+        path: "/",
+        element: h(ColumnView, { column_id }),
+        exact: true,
+      }),
     ]),
   ]); //, //h(App)]);
 }

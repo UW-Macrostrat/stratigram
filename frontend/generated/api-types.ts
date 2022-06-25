@@ -117,8 +117,8 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.column_obs.id"];
           height?: parameters["rowFilter.column_obs.height"];
-          top_height?: parameters["rowFilter.column_obs.top_height"];
           column_id?: parameters["rowFilter.column_obs.column_id"];
+          top_height?: parameters["rowFilter.column_obs.top_height"];
           note?: parameters["rowFilter.column_obs.note"];
           symbol?: parameters["rowFilter.column_obs.symbol"];
           /** Filtering Columns */
@@ -173,8 +173,8 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.column_obs.id"];
           height?: parameters["rowFilter.column_obs.height"];
-          top_height?: parameters["rowFilter.column_obs.top_height"];
           column_id?: parameters["rowFilter.column_obs.column_id"];
+          top_height?: parameters["rowFilter.column_obs.top_height"];
           note?: parameters["rowFilter.column_obs.note"];
           symbol?: parameters["rowFilter.column_obs.symbol"];
         };
@@ -193,8 +193,8 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.column_obs.id"];
           height?: parameters["rowFilter.column_obs.height"];
-          top_height?: parameters["rowFilter.column_obs.top_height"];
           column_id?: parameters["rowFilter.column_obs.column_id"];
+          top_height?: parameters["rowFilter.column_obs.top_height"];
           note?: parameters["rowFilter.column_obs.note"];
           symbol?: parameters["rowFilter.column_obs.symbol"];
         };
@@ -218,13 +218,14 @@ export interface paths {
       parameters: {
         query: {
           id?: parameters["rowFilter.column_surface.id"];
-          height?: parameters["rowFilter.column_surface.height"];
-          top_height?: parameters["rowFilter.column_surface.top_height"];
+          bottom?: parameters["rowFilter.column_surface.bottom"];
+          top?: parameters["rowFilter.column_surface.top"];
           column_id?: parameters["rowFilter.column_surface.column_id"];
           lithology_id?: parameters["rowFilter.column_surface.lithology_id"];
-          lithology_name?: parameters["rowFilter.column_surface.lithology_name"];
           facies_id?: parameters["rowFilter.column_surface.facies_id"];
-          facies_name?: parameters["rowFilter.column_surface.facies_name"];
+          lithology?: parameters["rowFilter.column_surface.lithology"];
+          facies?: parameters["rowFilter.column_surface.facies"];
+          pattern?: parameters["rowFilter.column_surface.pattern"];
           grainsize?: parameters["rowFilter.column_surface.grainsize"];
           covered?: parameters["rowFilter.column_surface.covered"];
           schematic?: parameters["rowFilter.column_surface.schematic"];
@@ -769,14 +770,14 @@ export interface definitions {
     id?: number;
     /** Format: numeric */
     height?: number;
-    /** Format: numeric */
-    top_height?: number;
     /**
      * Format: integer
      * @description Note:
      * This is a Foreign Key to `column.id`.<fk table='column' column='id'/>
      */
     column_id?: number;
+    /** Format: numeric */
+    top_height?: number;
     /** Format: text */
     note?: string;
     /** Format: text */
@@ -790,9 +791,9 @@ export interface definitions {
      */
     id?: number;
     /** Format: numeric */
-    height?: number;
+    bottom?: number;
     /** Format: numeric */
-    top_height?: number;
+    top?: number;
     /**
      * Format: integer
      * @description Note:
@@ -805,12 +806,14 @@ export interface definitions {
      * This is a Foreign Key to `lithology.id`.<fk table='lithology' column='id'/>
      */
     lithology_id?: number;
-    /** Format: text */
-    lithology_name?: string;
     /** Format: integer */
     facies_id?: number;
     /** Format: text */
-    facies_name?: string;
+    lithology?: string;
+    /** Format: text */
+    facies?: string;
+    /** Format: text */
+    pattern?: string;
     /**
      * Format: text
      * @description Note:
@@ -959,10 +962,10 @@ export interface parameters {
   "rowFilter.column_obs.id": string;
   /** Format: numeric */
   "rowFilter.column_obs.height": string;
-  /** Format: numeric */
-  "rowFilter.column_obs.top_height": string;
   /** Format: integer */
   "rowFilter.column_obs.column_id": string;
+  /** Format: numeric */
+  "rowFilter.column_obs.top_height": string;
   /** Format: text */
   "rowFilter.column_obs.note": string;
   /** Format: text */
@@ -972,19 +975,21 @@ export interface parameters {
   /** Format: integer */
   "rowFilter.column_surface.id": string;
   /** Format: numeric */
-  "rowFilter.column_surface.height": string;
+  "rowFilter.column_surface.bottom": string;
   /** Format: numeric */
-  "rowFilter.column_surface.top_height": string;
+  "rowFilter.column_surface.top": string;
   /** Format: integer */
   "rowFilter.column_surface.column_id": string;
   /** Format: integer */
   "rowFilter.column_surface.lithology_id": string;
-  /** Format: text */
-  "rowFilter.column_surface.lithology_name": string;
   /** Format: integer */
   "rowFilter.column_surface.facies_id": string;
   /** Format: text */
-  "rowFilter.column_surface.facies_name": string;
+  "rowFilter.column_surface.lithology": string;
+  /** Format: text */
+  "rowFilter.column_surface.facies": string;
+  /** Format: text */
+  "rowFilter.column_surface.pattern": string;
   /** Format: text */
   "rowFilter.column_surface.grainsize": string;
   /** Format: boolean */
