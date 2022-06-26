@@ -12,6 +12,7 @@ import { StratColumn } from "./column";
 import { useAPIQuery } from "~/system";
 import { Spinner } from "@blueprintjs/core";
 import { useStorageManager } from "~/system";
+import { GrainsizeLayoutProps } from "@macrostrat/column-components";
 
 function useColumnImage(column_id) {
   // For now, we only work with a single image
@@ -20,7 +21,7 @@ function useColumnImage(column_id) {
   return files?.[0]?.publicURL;
 }
 
-function ColumnView({ column_id }) {
+function ColumnView({ column_id, clipImage }) {
   const [state, updateState] = useState({
     inEditMode: true,
     showFacies: true,
@@ -60,6 +61,7 @@ function ColumnView({ column_id }) {
         clickedHeight,
         hideDetailColumn: false,
         columnImage,
+        clipImage,
         ...colData,
       }),
     ]),
@@ -72,6 +74,7 @@ interface ColumnViewData {
   margin: { [key: string]: number };
   pixelsPerMeter?: number;
   imageInsets?: { [key: string]: number };
+  grainsizeScaleOptions?: GrainsizeLayoutProps;
 }
 
 const columnViewIx: { [key: number]: ColumnViewData } = {
@@ -81,13 +84,26 @@ const columnViewIx: { [key: number]: ColumnViewData } = {
   },
   70: {
     height: 341.3,
-    margin: { left: 30, top: 30, right: 10, bottom: 30 },
+    margin: { left: 30, top: 100, right: 10, bottom: 100 },
     pixelsPerMeter: 4,
     imageInsets: {
       left: 67,
       top: 85,
       right: 280,
       bottom: 135,
+    },
+    grainsizeScaleOptions: {
+      grainSizes: [
+        "cover",
+        "shale/siltstone",
+        "sandstone",
+        "conglomerate",
+        "micrite/calcisiltite",
+        "grainstone",
+        "rudstone/debrite",
+        "dolomicrite/siltite",
+      ],
+      tickPositions: [58, 73, 86, 103, 130, 146, 162, 182],
     },
   },
 };

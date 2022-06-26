@@ -19,6 +19,7 @@ import {
   CoveredOverlay,
   FaciesColumnInner,
   NotesColumn,
+  GrainsizeLayoutProps,
 } from "@macrostrat/column-components";
 import h from "~/hyper";
 import T from "prop-types";
@@ -66,7 +67,12 @@ const MainColumn = function ({ generalized, lithologyWidth: width, ...rest }) {
 //{margin} = @props
 //scroll.scrollTo(margin.top)
 
-function StratColumnView(props) {
+interface StratColumnProps {
+  grainsizeScaleOptions?: GrainsizeLayoutProps;
+  [key: string]: any;
+}
+
+function StratColumnView(props: StratColumnProps) {
   let {
     margin = {
       left: 30,
@@ -90,6 +96,7 @@ function StratColumnView(props) {
     hideDetailColumn = false,
     surfaces,
     imageInsets = {},
+    grainsizeScaleOptions = {},
     clipImage,
   } = props;
 
@@ -126,8 +133,8 @@ function StratColumnView(props) {
         h(
           GrainsizeLayoutProvider,
           {
-            width: columnWidth,
-            grainsizeScaleStart,
+            grainsizeScaleRange: [grainsizeScaleStart, columnWidth],
+            ...grainsizeScaleOptions,
           },
           [
             h.if(!generalized && columnImage)(ColumnImage, {

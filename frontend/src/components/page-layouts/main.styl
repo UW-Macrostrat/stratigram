@@ -1,0 +1,33 @@
+.wide-page
+  display: flex
+  flex-direction: row
+  height 100vh
+  &>*
+    padding-inline: var(--page-margin)
+    padding-block: 1em
+
+  .sidebar
+    display flex
+    flex-direction: column
+    max-width: 20%
+    min-width: 200px
+    height 100vh
+    margin-right: var(--page-gutter)
+    .sidebar-content>*
+      margin: 0.5em 0 1em
+  .main
+    flex-grow 1
+    overflow-y scroll
+
+.sidebar-content
+  display flex
+  flex-direction: column
+  flex-grow 1
+
+header.page-header
+  display: flex
+  flex-direction: row
+  align-items: baseline
+
+.spacer
+  flex-grow 1

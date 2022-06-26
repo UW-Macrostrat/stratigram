@@ -9,7 +9,7 @@ import h from "./main.module.styl";
 import { StatefulComponent } from "@macrostrat/ui-components";
 
 import { StratColumn } from "./column";
-import { SettingsPanel } from "../../legacy-ui/settings";
+import { SettingsPanel } from "../../pages/column/settings";
 import { Page } from "../../legacy-ui/enum";
 import { Panel } from "../ui-panel";
 

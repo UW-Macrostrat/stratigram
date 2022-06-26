@@ -4,9 +4,11 @@ import { StorageUI, WidePage, LabeledValue } from "~/components";
 import { Link, useParams, Route, Routes } from "react-router-dom";
 import { useAPIQuery } from "~/system/data-service";
 import { SidebarButton } from "~/components/buttons";
+import { SettingsPanel, useColumnSettings } from "./settings";
 
 export function ColumnPage(props) {
   const { column_id } = useParams();
+  const [settings, updateSettings] = useColumnSettings();
 
   const { data, loading } = useAPIQuery(
     "column",
@@ -56,8 +58,12 @@ export function ColumnPage(props) {
         element: h(ColumnImagesUI, { column_id }),
       }),
       h(Route, {
+        path: "/settings",
+        element: h(SettingsPanel, { column_id, settings, updateSettings }),
+      }),
+      h(Route, {
         path: "/",
-        element: h(ColumnView, { column_id }),
+        element: h(ColumnView, { column_id, clipImage: settings.clipImage }),
         exact: true,
       }),
     ]),
