@@ -2,6 +2,7 @@ import {
   PostgrestClient,
   PostgrestFilterBuilder,
   PostgrestQueryBuilder,
+  GenericTable,
 } from "@supabase/postgrest-js";
 import { useCallback, useState, useEffect } from "react";
 import { definitions } from "../../generated/api-types";
@@ -13,7 +14,7 @@ type APISchema = definitions;
 function useAPIQuery<T extends keyof definitions, Data = definitions[T]>(
   relation: T,
   builder: (
-    q: PostgrestQueryBuilder<definitions[T]>
+    q: PostgrestQueryBuilder<definitions[T], GenericTable>
   ) => PostgrestFilterBuilder<definitions[T] | Data>,
   deps: any[] = []
 ) {

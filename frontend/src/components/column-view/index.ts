@@ -1,10 +1,3 @@
-/*
- * decaffeinate suggestions:
- * DS002: Fix invalid constructor
- * DS102: Remove unnecessary code created because of implicit returns
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
 import h from "./main.module.styl";
 import { useState } from "react";
 
@@ -12,7 +5,10 @@ import { StratColumn } from "./column";
 import { useAPIQuery } from "~/system";
 import { Spinner } from "@blueprintjs/core";
 import { useStorageManager } from "~/system";
-import { GrainsizeLayoutProps } from "@macrostrat/column-components";
+import {
+  GrainsizeLayoutProps,
+  LithologyProvider,
+} from "@macrostrat/column-components";
 
 function useColumnImage(column_id) {
   // For now, we only work with a single image
@@ -21,11 +17,10 @@ function useColumnImage(column_id) {
   return files?.[0]?.publicURL;
 }
 
-function ColumnView({ column_id, clipImage }) {
+function ColumnView({ column_id, project_id, clipImage, generalized }) {
   const [state, updateState] = useState({
     inEditMode: true,
     showFacies: true,
-    generalized: false,
     editingInterval: null,
     clickedHeight: null,
   });
@@ -38,34 +33,52 @@ function ColumnView({ column_id, clipImage }) {
 
   if (surfaces == null) return h(Spinner);
 
-  let { generalized, inEditMode, editingInterval, clickedHeight } = state;
-
-  if (!inEditMode) {
-    editingInterval = null;
-  }
+  let { editingInterval, clickedHeight } = state;
 
   // Temporary store of view params
   const colData = columnViewIx[column_id];
 
-  return h("div.column-main", [
-    h("div.cs-main", [
-      h(StratColumn, {
-        column_id,
-        generalized,
-        inEditMode,
-        editInterval: () => {},
-        addInterval: () => {},
-        removeInterval: () => {},
-        onUpdate: () => {},
-        editingInterval,
-        clickedHeight,
-        hideDetailColumn: false,
-        columnImage,
-        clipImage,
-        ...colData,
-      }),
-    ]),
-  ]);
+  // orphaned state
+  const showFacies = true;
+
+  console.log(surfaces);
+
+  return h(
+    LithologyManager,
+    { project_id },
+    h("div.column-main", [
+      h("div.cs-main", [
+        h(StratColumn, {
+          column_id,
+          generalized,
+          surfaces,
+          inEditMode: true,
+          editInterval: (obj) => {
+            if (obj == null) {
+              return updateState({ ...state, editingInterval: null });
+            }
+            let { height, division } = obj;
+            if (division == editingInterval) division = null;
+            console.log(division);
+            updateState({
+              ...state,
+              editingInterval: division,
+              clickedHeight: height,
+            });
+          },
+          addInterval: () => {},
+          removeInterval: () => {},
+          onUpdate: () => {},
+          editingInterval,
+          clickedHeight,
+          hideDetailColumn: false,
+          columnImage,
+          clipImage,
+          ...colData,
+        }),
+      ]),
+    ])
+  );
 }
 
 interface ColumnViewData {
@@ -107,5 +120,15 @@ const columnViewIx: { [key: number]: ColumnViewData } = {
     },
   },
 };
+
+function LithologyManager({ project_id, children }) {
+  let { data: lithologies, refresh } = useAPIQuery("lithology", (q) => {
+    return q.select("*").filter("project_id", "eq", project_id);
+  });
+
+  lithologies ??= [];
+
+  return h(LithologyProvider, { lithologies }, children);
+}
 
 export { ColumnView };

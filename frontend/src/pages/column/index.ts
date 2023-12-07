@@ -63,7 +63,12 @@ export function ColumnPage(props) {
       }),
       h(Route, {
         path: "/",
-        element: h(ColumnView, { column_id, clipImage: settings.clipImage }),
+        element: h(ColumnView, {
+          column_id,
+          project_id: project.id,
+          clipImage: settings.clipImage,
+          generalized: settings.generalized,
+        }),
         exact: true,
       }),
     ]),
