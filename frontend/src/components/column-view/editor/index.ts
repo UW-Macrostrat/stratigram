@@ -184,7 +184,7 @@ const MetaControls = (props) => {
       editingInterval: interval.id,
     }),
     h(IntervalEditorTitle, {
-      title: `Section ${section}`,
+      title: section,
       interval,
     }),
     children,
@@ -275,15 +275,15 @@ const SummaryControls = () => {
         updateInterval({ facies });
       },
     }),
-    h(LabeledControl, {
-      title: "Facies tract",
-      is: FaciesTractControl,
-      interval,
-      onUpdate: (option) => {
-        const facies_tract = option.value;
-        return updateInterval({ facies_tract });
-      },
-    }),
+    // h(LabeledControl, {
+    //   title: "Facies tract",
+    //   is: FaciesTractControl,
+    //   interval,
+    //   onUpdate: (option) => {
+    //     const facies_tract = option.value;
+    //     return updateInterval({ facies_tract });
+    //   },
+    // }),
     // h(SequenceStratControls, { updateInterval, interval }, [
     //   h(
     //     Tab,
@@ -315,7 +315,7 @@ const EditorInner = (props: EditorProps) => {
       h(
         MetaControls,
         {
-          section: interval.section_id,
+          section: interval.column_name,
           interval,
           moveCursor,
         },
@@ -349,7 +349,7 @@ const IntervalEditor = (props: ModalEditorProps) => {
   return h(
     Panel,
     {
-      className: "bp3-minimal editor-drawer",
+      className: "bp4-minimal editor-drawer",
       title: "Edit interval",
       isOpen,
       onClose: closeDialog,

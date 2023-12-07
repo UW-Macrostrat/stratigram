@@ -33,6 +33,7 @@ SELECT
       height
   ) top,
   column_id,
+  c.name column_name,
   lithology_id,
   facies_id,
   l."name" lithology,
@@ -44,10 +45,9 @@ SELECT
   surface_type
 FROM
   stratiform.column_surface s
-  JOIN stratiform.lithology l
-    ON l.id = s.lithology_id
-  JOIN stratiform.facies f
-    ON f.id = s.facies_id
+  JOIN stratiform.lithology l ON l.id = s.lithology_id
+  JOIN stratiform.facies f ON f.id = s.facies_id
+  JOIN stratiform.column c ON c.id = s.column_id
 ORDER BY
   column_id,
   height DESC;
